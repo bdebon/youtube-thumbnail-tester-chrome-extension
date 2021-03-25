@@ -17,10 +17,10 @@ function initInputs() {
 	  
 	  // If there's valid data stored
 	  if(typeof(storedThumbnail) !== "undefined") {
-		titleInput.value = result.thumbnailProperties.title
-		channelNameInput.value = result.thumbnailProperties.channelName
+		titleInput.value = storedThumbnail.title
+		channelNameInput.value = storedThumbnail.channelName
 
-		channelThumbnailBase64 = result.thumbnailProperties.channelThumbnail
+		channelThumbnailBase64 = storedThumbnail.channelThumbnail
 		preview.src = channelThumbnailBase64
 	  }
   })
