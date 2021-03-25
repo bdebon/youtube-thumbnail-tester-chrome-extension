@@ -1,6 +1,6 @@
 {
-  "name": "Getting Started Example",
-  "description": "Build an Extension!",
+  "name": "Youtube Preview Thumbnail",
+  "description": "Preview your Thumbnail before posting your video !",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
