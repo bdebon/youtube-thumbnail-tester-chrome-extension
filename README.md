@@ -9,3 +9,10 @@
 
 
 Then you should see the extension was installed
+
+
+## Credits
+Made by benjamincode live on Twitch :
+- [Youtube : Benjamin Code](https://www.youtube.com/channel/UCLOAPb7ATQUs_nDs9ViLcMw)
+- [Twitch : benjamincode](https://www.twitch.tv/benjamincode)
+- [Twitter : @benjamincodeYT](https://twitter.com/benjamincodeYT)
