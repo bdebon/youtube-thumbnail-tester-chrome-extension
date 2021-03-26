@@ -17,7 +17,7 @@ initInputs();
 function initInputs() {
   chrome.storage.local.get("thumbnailProperties", (result) => {
 	  var storedThumbnail = result.thumbnailProperties;
-	  
+
 	  // If there's valid data stored
 	  if(typeof(storedThumbnail) !== "undefined") {
 		titleInput.value = storedThumbnail.title
@@ -27,9 +27,10 @@ function initInputs() {
 		preview.src = channelThumbnailBase64
 	  }
   })
-  
+
   // Au début : nettoyage des eventuels messages d'erreur
   removeError();
+  sessionStorage.removeItem('previousThumbnailProperties')
 }
 
 findCardBtn.addEventListener("click", async () => {
@@ -45,7 +46,7 @@ findCardBtn.addEventListener("click", async () => {
         thumbnail: imgBase64,
         channelThumbnail: channelThumbnailBase64
       } });
-	  
+
   } catch(e) {
     console.error("Error with the Youtube thumbnail extension : " + e)
   }
@@ -54,11 +55,11 @@ findCardBtn.addEventListener("click", async () => {
     target: { tabId: tab.id },
     function: findCard,
   });
-  
-  
+
+
   // A la fin du click : affichage des potentielles erreurs
-  
-  // Je n'arrive pas à récupérer le retour de findCard 
+
+  // Je n'arrive pas à récupérer le retour de findCard
   // Ni à exécuter du code directement après findCard
   // Donc ce setTimeout de 100ms est un petit contournement
   // Sinon l'erreur ne s'affiche pas au 1er clic sur GO
@@ -104,30 +105,54 @@ function findCard(title) {
   let min = 1
   let max = 12
   let cardPositionIndex = Math.floor(Math.random() * (max - min + 1)) + min
-  
+
   // Target only ytd-rich-item-renderer element and not ytd-rich-item-renderer with id content
   let cards = document.querySelectorAll('.ytd-rich-item-renderer:not(#content)')
   let target = cards[cardPositionIndex]
-  
+
   // Si le user n'est pas sur YT => message d'erreur
   if(typeof(target) === "undefined") {
     chrome.storage.local.set({errorMessage: "Vous devez être sur la page d'accueil de Youtube !"});
     return;
   }
-  
-  
+
+
   chrome.storage.local.get("thumbnailProperties", (result) => {
     const thumbnail = target.querySelector('.yt-img-shadow')
-    thumbnail.src = result.thumbnailProperties.thumbnail
-
     const title = target.querySelector('#video-title')
     const channelName = target.querySelector('.ytd-channel-name a')
     const channelThumbnail = target.querySelector('#avatar-link img')
 
+    let previousThumbnailProperties = sessionStorage.getItem(
+      'previousThumbnailProperties')
+    if (previousThumbnailProperties !== null) {
+      resetTargetThumbnail(previousThumbnailProperties)
+    }
+
+    //on sauvegarde les propriétés du de la card écrasée pour la reset ensuite
+    sessionStorage.setItem('previousThumbnailProperties', JSON.stringify({
+      index: cardPositionIndex,
+      title: title.innerText,
+      channelName: channelName.innerText,
+      thumbnail: thumbnail.src,
+      channelThumbnail: channelThumbnail.src,
+    }))
+
+    thumbnail.src = result.thumbnailProperties.thumbnail
     title.textContent = result.thumbnailProperties.title
     channelName.textContent = result.thumbnailProperties.channelName
     channelThumbnail.src = result.thumbnailProperties.channelThumbnail
   });
+
+  function resetTargetThumbnail(previousThumbnailProperties) {
+    previousThumbnailProperties = JSON.parse(previousThumbnailProperties)
+    target = document.querySelectorAll(
+      '.ytd-rich-item-renderer:not(#content)')[previousThumbnailProperties.index]
+    target.querySelector('.yt-img-shadow').src = previousThumbnailProperties.thumbnail
+    target.querySelector('#video-title').textContent = previousThumbnailProperties.title
+    target.querySelector('.ytd-channel-name a').textContent = previousThumbnailProperties.channelName
+    target.querySelector('#avatar-link img').src = previousThumbnailProperties.channelThumbnail
+  }
 }
 
 // Vérifie si il y a une erreur dans le storage
@@ -140,7 +165,7 @@ function checkForError() {
 	}
   });
   chrome.storage.local.remove(['errorMessage']);
-}	
+}
 
 // Retire les erreurs et leur affichage
 function removeError() {
