@@ -1,5 +1,5 @@
 // =============================================
-// Elements de popup.html
+// Elements from popup.html
 let findCardBtn = document.querySelector(".js-find-card");
 const titleInput = document.querySelector('.js-title-input')
 const channelThumbnailInput = document.querySelector('.js-channel-thumbnail-input')
@@ -28,7 +28,7 @@ function initInputs() {
 	  }
   })
   
-  // Au début : nettoyage des eventuels messages d'erreur
+  // At the beginning : clear the possible error messages
   removeError();
 }
 
@@ -56,12 +56,12 @@ findCardBtn.addEventListener("click", async () => {
   });
   
   
-  // A la fin du click : affichage des potentielles erreurs
+  // Display potential errors when the click is done
   
-  // Je n'arrive pas à récupérer le retour de findCard 
-  // Ni à exécuter du code directement après findCard
-  // Donc ce setTimeout de 100ms est un petit contournement
-  // Sinon l'erreur ne s'affiche pas au 1er clic sur GO
+  // I can't get the return from findCard 
+  // I can't execute code directly after findCard either
+  // Soooo this setTimeout of 100ms is a small hack
+  // Otherwise the error doesn't display on the first click
   setTimeout(
     function() {
 	  checkForError();
@@ -109,9 +109,9 @@ function findCard(title) {
   let cards = document.querySelectorAll('.ytd-rich-item-renderer:not(#content)')
   let target = cards[cardPositionIndex]
   
-  // Si le user n'est pas sur YT => message d'erreur
+  // If the user is on another site than YT
   if(typeof(target) === "undefined") {
-    chrome.storage.local.set({errorMessage: "Vous devez être sur la page d'accueil de Youtube !"});
+    chrome.storage.local.set({errorMessage: "You need to be on the Youtube homepage !"});
     return;
   }
   
@@ -122,16 +122,30 @@ function findCard(title) {
 
     const title = target.querySelector('#video-title')
     const channelName = target.querySelector('.ytd-channel-name a')
-    const channelThumbnail = target.querySelector('#avatar-link img')
-
+    
     title.textContent = result.thumbnailProperties.title
     channelName.textContent = result.thumbnailProperties.channelName
-    channelThumbnail.src = result.thumbnailProperties.channelThumbnail
+	
+	// Channel's thumbnail management
+	let channelThumbnailFromExtension = result.thumbnailProperties.channelThumbnail
+	let channelThumbnailFromYoutube = document.querySelector("#avatar-btn .yt-img-shadow")
+	
+	// By default, we get the image from the extension
+	let channelThumbnailValue = channelThumbnailFromExtension
+	
+	// But if there's no image then we try to get the real YT thumbnail
+	// => Thumbnail from YT is null if not logged in so we check for it
+	if(channelThumbnailValue == null && channelThumbnailFromYoutube != null) {
+		channelThumbnailValue = channelThumbnailFromYoutube.src
+	}
+	
+	// Finally, set the channel's thumbnail in the preview
+    target.querySelector('#avatar-link img').src = channelThumbnailValue
   });
 }
 
-// Vérifie si il y a une erreur dans le storage
-// Si oui, l'affiche et puis la clear
+// Checks if an error is stored
+// If so then displays it and clears it
 function checkForError() {
   chrome.storage.local.get(['errorMessage'], function(result) {
     if(typeof(result.errorMessage) !== "undefined") {
@@ -142,7 +156,7 @@ function checkForError() {
   chrome.storage.local.remove(['errorMessage']);
 }	
 
-// Retire les erreurs et leur affichage
+// Removes the errors from storage and from the display
 function removeError() {
   errorMessageSpan.textContent = "";
   errorMessageSpan.style.display = "none";
