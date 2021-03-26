@@ -87,6 +87,8 @@ function findCard(title) {
     // Select randomly a card
     const cards = document.querySelectorAll('.ytd-rich-item-renderer')
     const cardPositionIndex = Math.floor(Math.random() * cards.length - 1)
+    // Target only ytd-rich-item-renderer element and not ytd-rich-item-renderer with id content
+    const cards = document.querySelectorAll('.ytd-rich-item-renderer:not(#content)')
     const target = cards[cardPositionIndex]
 
     const thumbnail = target.querySelector('.yt-img-shadow')
