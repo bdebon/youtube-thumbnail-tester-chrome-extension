@@ -83,13 +83,15 @@ channelThumbnailInput.addEventListener('change', (e) => {
 
 function findCard(title) {
   chrome.storage.local.get("thumbnailProperties", (result) => {
-    const cardPositionIndex = 4;
 
-    const target = document.querySelectorAll('.ytd-rich-item-renderer')[cardPositionIndex]
-	
+    // Select randomly a card
+    const cards = document.querySelectorAll('.ytd-rich-item-renderer')
+    const cardPositionIndex = Math.floor(Math.random() * cards.length - 1)
+    const target = cards[cardPositionIndex]
+
     const thumbnail = target.querySelector('.yt-img-shadow')
     thumbnail.src = result.thumbnailProperties.thumbnail
-	
+
     const title = target.querySelector('#video-title')
     const channelName = target.querySelector('.ytd-channel-name a')
     const channelThumbnail = target.querySelector('#avatar-link img')
@@ -97,9 +99,8 @@ function findCard(title) {
     title.textContent = result.thumbnailProperties.title
     channelName.textContent = result.thumbnailProperties.channelName
     channelThumbnail.src = result.thumbnailProperties.channelThumbnail
-
   });
-
 }
+
 
 
