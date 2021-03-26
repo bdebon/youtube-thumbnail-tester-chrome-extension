@@ -1,0 +1,139 @@
+body {
+	padding: 1.5rem;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 2rem;
+}
+
+header img {
+	width: 15px;
+	cursor: pointer;
+}
+
+header #back.hidden {
+	visibility: hidden;
+	opacity: 0;
+}
+
+#wrapper {
+	width: 300px;
+}
+
+#wrapper .step {
+	display: none;
+	flex-direction: column;
+	align-items: center;
+}
+#wrapper .step.active {display: flex;}
+
+.text-input {
+	width: 100%;
+	border: 1px solid #dee0e2;
+	padding: .85rem;
+}
+
+.submit-button {
+	width: 100%;
+	padding: .85rem;
+	background-color: #0054ff;
+	margin-top: 1rem;
+	border: none;
+	color: #dee0e2;
+}
+
+/* ----- Pagination ----- */
+#pagination {
+	display: flex;
+}
+
+#pagination li {margin: 0 .5rem;}
+#pagination li::before {
+	content: '';
+	display: block;
+	width: 8px;
+	height: 8px;
+	border-radius: 1rem;
+	background-color: #dee0e2;
+	transition: .2s ease-in-out all;
+}
+#pagination li.active::before {
+	background-color: #0054ff;
+	width: 12px;
+}
+
+/* ----- Step 1, Channel ----- */
+.upload-icon {
+	cursor: pointer;
+	margin-bottom: 2.5rem;
+}
+
+.upload-icon .icon, .upload-icon.empty .image-upload-preview {display: none;}
+.upload-icon.empty .icon img {width: 25px;}
+.upload-icon.empty .icon {
+	display: block;
+	padding: 1.65rem;
+	border-radius: 5rem;
+	border: 1px dashed #dee0e2;
+	transition: .1s ease-in-out all;
+}
+.upload-icon.empty:hover .icon {
+	background-color: #0056ff;
+	border: 1px solid #0056ff;
+}
+
+.upload-icon.empty .preview-profile {display: none;}
+.upload-icon .preview-profile {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+}
+
+/* ----- Step 2, Video ----- */
+.upload-thumbnail.empty .icon img {
+	margin: auto;
+}
+.upload-thumbnail.empty .icon {
+	border-radius: 0;
+	display: flex;
+	height: 56.25vw;
+}
+.upload-thumbnail {width: 100%;}
+.upload-thumbnail .image-upload-preview {
+	/* Keep the 16:9 ratio */
+	width: 100%;
+	height: 56.25vw;
+	object-fit: cover;
+}
+
+/* ----- Step 2, Preview data ----- */
+.preview-before-submit {
+	padding: 1rem;
+	border: 1px solid #dee0e2;
+	font-weight: 500;
+}
+
+.preview-before-submit .thumbnail-preview {
+	width: 100%;
+	margin-bottom: .75rem;
+	/* Keep the 16:9 ratio */
+	width: 100%;
+	height: 56.25vw;
+	object-fit: cover;
+}
+
+.channel-wrapper {
+	display: flex;
+	align-items: center;
+	margin-bottom: .75rem;
+}
+
+.channel-wrapper img {
+	width: 45px;
+	height: 45px;
+	border-radius: 50%;
+	margin-right: .75rem;
+}
