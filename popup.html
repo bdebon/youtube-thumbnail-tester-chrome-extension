@@ -5,32 +5,50 @@
     <link rel="stylesheet" href="./styles/popup.css">
   </head>
   <body>
+    <div id="wrapper">
+      <header>
         <img id="back" src="./images/back.svg" alt="Back Step Icon" class="hidden" />
+        <ul id="pagination">
+          <li class="active" data-id="profile"></li>
+          <li data-id="video"></li>
+          <li data-id="submit"></li>
+        </ul>
         <img id="close" src="./images/close.svg" alt="Close Extension Icon" />
       </header>
+      <div id="profile" class="step active">
+        <label for="profile-thumbnail" class="upload-icon empty">
+          <div class="icon">
             <img src="./images/upload.svg" alt="Upload Icon" />
-  </div>
-
-  <div>
-    <label>
-      Channel Thumbnail<br/>
-      <input class="js-channel-thumbnail-input" type="file" name="title"/>
-      <img src="/" alt="channel thumbnail" class="preview-channel-thumbnail"/>
-    </label>
-  </div>
+          </div>
+          <img src="" alt="" class="image-upload-preview preview-profile" />
+          <input type="file" id="profile-thumbnail" class="image-upload-input" hidden />
+        </label>
+        <input type="text" class="text-input" id="channel-name" placeholder="Channel Name" />
+        <input type="submit" value="Confirm the profile" class="submit-button" data-action="next" />
+      </div>
+      <div id="video" class="step">
+        <label for="video-thumbnail" class="upload-icon upload-thumbnail empty">
+          <div class="icon">
             <img src="./images/upload.svg" alt="Upload Icon" />
+          </div>
+          <img src="" alt="" class="image-upload-preview" />
+          <input type="file" id="video-thumbnail" class="image-upload-input" hidden />
+        </label>
+        <input type="text" class="text-input" id="channel-name" placeholder="Video Title" />
+        <input type="submit" value="Confirm the thumbnail" class="submit-button" data-action="next" />
+      </div>
+      <div id="submit" class="step">
+        <div class="preview-before-submit">
+          <div class="channel-wrapper">
+            <img src="" alt="Channel Preview" class="submit-image-preview" />
+            <h3 class="submit-text-preview"></h3>
+          </div>
+          <img src="" alt="Video Thumbnail Preview" class="submit-image-preview thumbnail-preview" />
+          <h2 class="submit-text-preview"></h2>
+        </div>
+        <input type="submit" value="Submit the thumbnail" class="submit-button" data-action="preview" />
+      </div>
     </div>
-
-    <div>
-      <label>
-        Thumbnail<br/>
-        <input type="file" class="js-thumbnail-input" name="thumbnail"/>
-      </label>
-    </div>
-
-    <button class="js-find-card">Go!</button>
-
-
     <script src="popup.js"></script>
   </body>
 </html>
