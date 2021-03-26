@@ -112,10 +112,21 @@ function findCard(title) {
   
   
   chrome.storage.local.get("thumbnailProperties", (result) => {
-    
+
+
+    // Select randomly a card between a range
+    let min = 1
+    let max = 12
+
+    // Target only ytd-rich-item-renderer element and not ytd-rich-item-renderer with id content
+    const cards = document.querySelectorAll('.ytd-rich-item-renderer:not(#content)')
+    const cardPositionIndex = Math.floor(Math.random() * (max - min + 1)) + min
+
+    const target = cards[cardPositionIndex]
+
     const thumbnail = target.querySelector('.yt-img-shadow')
     thumbnail.src = result.thumbnailProperties.thumbnail
-	
+
     const title = target.querySelector('#video-title')
     const channelName = target.querySelector('.ytd-channel-name a')
     const channelThumbnail = target.querySelector('#avatar-link img')
@@ -123,9 +134,7 @@ function findCard(title) {
     title.textContent = result.thumbnailProperties.title
     channelName.textContent = result.thumbnailProperties.channelName
     channelThumbnail.src = result.thumbnailProperties.channelThumbnail
-
   });
-
 }
 
 // Vérifie si il y a une erreur dans le storage
@@ -146,5 +155,6 @@ function removeError() {
   errorMessageSpan.style.display = "none";
   chrome.storage.local.remove(['errorMessage']);
 }
+
 
 
