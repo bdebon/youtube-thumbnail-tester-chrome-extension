@@ -1,6 +1,6 @@
 {
-  "name": "Getting Started Example",
-  "description": "Build an Extension!",
+  "name": "YouTube Thumbnail Tester",
+  "description": "Preview your thumbnail and title on YouTube home page !",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
