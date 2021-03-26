@@ -122,11 +122,25 @@ function findCard(title) {
 
     const title = target.querySelector('#video-title')
     const channelName = target.querySelector('.ytd-channel-name a')
-    const channelThumbnail = target.querySelector('#avatar-link img')
-
+    
     title.textContent = result.thumbnailProperties.title
     channelName.textContent = result.thumbnailProperties.channelName
-    channelThumbnail.src = result.thumbnailProperties.channelThumbnail
+	
+	// Gestion de la thumbnail de la chaine
+	let channelThumbnailFromExtension = result.thumbnailProperties.channelThumbnail
+	let channelThumbnailFromYoutube = document.querySelector("#avatar-btn .yt-img-shadow")
+	
+	// Par défaut on prend l'image insérée dans l'extension
+	let channelThumbnailValue = channelThumbnailFromExtension
+	
+	// Si pas d'image insérée alors on tente de récupérer l'actuelle image du compte
+	// => Thumbnail YT null si non loggé à YT donc on vérifie
+	if(channelThumbnailValue == null && channelThumbnailFromYoutube != null) {
+		channelThumbnailValue = channelThumbnailFromYoutube.src
+	}
+	
+	// On set la thumbnail de la chaine dans l'aperçu vidéo
+    target.querySelector('#avatar-link img').src = channelThumbnailValue
   });
 }
 
