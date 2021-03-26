@@ -100,9 +100,14 @@ channelThumbnailInput.addEventListener('change', (e) => {
 
 
 function findCard(title) {
+  // Select randomly a card between a range
+  let min = 1
+  let max = 12
+  let cardPositionIndex = Math.floor(Math.random() * (max - min + 1)) + min
   
-  let cardPositionIndex = 4;
-  let target = document.querySelectorAll('.ytd-rich-item-renderer')[cardPositionIndex]
+  // Target only ytd-rich-item-renderer element and not ytd-rich-item-renderer with id content
+  let cards = document.querySelectorAll('.ytd-rich-item-renderer:not(#content)')
+  let target = cards[cardPositionIndex]
   
   // Si le user n'est pas sur YT => message d'erreur
   if(typeof(target) === "undefined") {
@@ -112,18 +117,6 @@ function findCard(title) {
   
   
   chrome.storage.local.get("thumbnailProperties", (result) => {
-
-
-    // Select randomly a card between a range
-    let min = 1
-    let max = 12
-
-    // Target only ytd-rich-item-renderer element and not ytd-rich-item-renderer with id content
-    const cards = document.querySelectorAll('.ytd-rich-item-renderer:not(#content)')
-    const cardPositionIndex = Math.floor(Math.random() * (max - min + 1)) + min
-
-    const target = cards[cardPositionIndex]
-
     const thumbnail = target.querySelector('.yt-img-shadow')
     thumbnail.src = result.thumbnailProperties.thumbnail
 
