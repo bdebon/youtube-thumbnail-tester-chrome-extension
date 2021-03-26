@@ -84,11 +84,14 @@ channelThumbnailInput.addEventListener('change', (e) => {
 function findCard(title) {
   chrome.storage.local.get("thumbnailProperties", (result) => {
 
-    // Select randomly a card
-    const cards = document.querySelectorAll('.ytd-rich-item-renderer')
-    const cardPositionIndex = Math.floor(Math.random() * cards.length - 1)
+    // Select randomly a card between a range
+    let min = 1
+    let max = 12
+
     // Target only ytd-rich-item-renderer element and not ytd-rich-item-renderer with id content
     const cards = document.querySelectorAll('.ytd-rich-item-renderer:not(#content)')
+    const cardPositionIndex = Math.floor(Math.random() * (max - min + 1)) + min
+
     const target = cards[cardPositionIndex]
 
     const thumbnail = target.querySelector('.yt-img-shadow')
