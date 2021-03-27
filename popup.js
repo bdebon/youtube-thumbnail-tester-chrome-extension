@@ -31,8 +31,6 @@ function initInputs() {
   })
 
   chrome.storage.local.get('randomPosition', function (result) {
-    console.log(result)
-    console.log(randomButton.checked = result.randomPosition)
     randomButton.attributes.checked = result.randomPosition
   })
 }
