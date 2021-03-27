@@ -5,9 +5,20 @@ const channelThumbnailInput = document.querySelector('.js-channel-thumbnail-inpu
 const channelNameInput = document.querySelector('.js-channel-name-input')
 const thumbnailInput = document.querySelector('.js-thumbnail-input')
 
+const randomButton = document.querySelector('.js-random-position')
+const randomPosition = false
+
 let imgBase64 = null
 let channelThumbnailBase64 = null
 const preview = document.querySelector('.preview-channel-thumbnail');
+
+
+// Init value from chrome store
+chrome.storage.local.get('randomPosition', function (result) {
+  console.log(result)
+  console.log(randomButton.checked = result.randomPosition)
+  randomButton.attributes.checked = result.randomPosition
+})
 
 initInputs();
 
@@ -80,18 +91,33 @@ channelThumbnailInput.addEventListener('change', (e) => {
   }
 })
 
+// Storage randomPosition value
+randomButton.addEventListener('click', event => {
+  chrome.storage.local.set({ 'randomPosition': event.target.checked })
+})
+
 
 function findCard(title) {
+
+  // Get randomPosition from the store and paste value
+  chrome.storage.local.get('randomPosition', function (result) {
+    randomPosition = result.randomPosition
+  });
+
   chrome.storage.local.get("thumbnailProperties", (result) => {
 
-    // Select randomly a card between a range
-    let min = 1
-    let max = 12
+    let cardPositionIndex = 4
 
-    // Target only ytd-rich-item-renderer element and not ytd-rich-item-renderer with id content
+    if (randomPosition) {
+      // Select randomly a card between a range
+      let min = 1
+      let max = 12
+
+      // Target only ytd-rich-item-renderer element and not ytd-rich-item-renderer with id content
+      cardPositionIndex = Math.floor(Math.random() * (max - min + 1)) + min
+    }
+
     const cards = document.querySelectorAll('.ytd-rich-item-renderer:not(#content)')
-    const cardPositionIndex = Math.floor(Math.random() * (max - min + 1)) + min
-
     const target = cards[cardPositionIndex]
 
     const thumbnail = target.querySelector('.yt-img-shadow')
