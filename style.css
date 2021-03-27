@@ -1,0 +1,323 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+  --main: #6116FF;
+  --main-darker: #24008C;
+  --grey: #A7A3C2;
+  --grey-light: #D5CEEA;
+  --grey-lighter: #F8F5FF;
+  --black: #2A2C40;
+  --black-alt : #161827;
+}
+
+body {
+    font-family: 'Epilogue', sans-serif;
+}
+
+/* Button */
+.py-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    padding: 12px;
+    margin: 0;
+    text-decoration: none;
+    background: var(--main);
+    color: #fff;
+    font-family: 'Epilogue', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+}
+
+.py-button:hover {
+    padding: 10px 12px 14px;
+    box-shadow: 0px -4px 0px 0px var(--main-darker) inset;
+    -webkit-box-shadow: 0px -4px 0px 0px var(--main-darker) inset;
+    -moz-box-shadow: 0px -4px 0px 0px var(--main-darker) inset;
+}
+
+.py-button-icon {
+    margin-right: 12px;
+}
+
+.py-secondary-button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border-radius: 50%;
+    transition: all 150ms ease;
+    cursor: pointer;
+}
+
+.py-secondary-button:hover {
+    background-color: var(--grey-lighter);
+}
+
+.py-secondary-button svg * { transition: all 150ms; }
+.py-secondary-button:hover svg * {
+    fill: var(--main);
+}
+
+.py-container {
+    position: relative;
+    width: 400px;
+    border-radius: 16px;
+    border: none;
+    background-color: #fff;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin: 40px;
+    padding: 32px 24px;
+}
+
+.reset-button {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+}
+
+.darkmode-button {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+}
+
+.py-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.py-header-eyes {
+    width: 48px;
+}
+
+.py-header-title {
+    font-size: 24px;
+    color: var(--black-alt);
+    font-weight: 900;
+    margin-bottom: 4px;
+}
+
+.py-header-text {
+    font-size: 11px;
+    color: var(--grey);
+}
+
+.py-header-text a {
+    color: var(--grey);
+}
+
+input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
+
+.py-form-group {
+    display: block;
+    position: relative;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.py-form-group.c-thumb {
+    flex-basis: 56px;
+    margin-right: 24px;
+    margin-bottom: 16px;
+}
+
+.py-form-label {
+    position: absolute;
+    top: calc(50% - 7.5px);
+    transition: all 0.15s ease-in;
+    pointer-events: none;
+    font-size: 15px;
+    color: var(--grey);
+}
+
+.py-form-field {
+    background: transparent;
+    display: block;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid var(--grey-light);
+    font-size: 15px;
+    height: 40px;
+    outline: 0;
+    color: var(--black);
+}
+
+.py-form-field:focus {
+    border-color: var(--main);
+}
+
+.py-form-field:focus + .py-form-label,
+.py-form-field:valid + .py-form-label {
+    top: -6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--main);
+}
+
+.py-form-file {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+/* Channel file */
+.file-channel-thumbnail + .py-form-filelabel {
+    display: block;
+    width: 56px;
+    height: 56px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 250ms;
+    background-color: var(--grey-lighter);
+}
+
+.file-channel-thumbnail:focus + .py-form-filelabel,
+.file-channel-thumbnail + .py-form-filelabel:hover {
+    background-color: var(--grey-light);
+}
+
+.channel-fileinput-user {
+    position: absolute;
+    width: 30px;
+    left: 13px;
+    bottom: -2px;
+    transition: all 250ms;
+    transform-origin: 50% 150%;
+    opacity: 1;
+}
+
+.file-channel-thumbnail + .py-form-filelabel:hover .channel-fileinput-user {
+    transform: rotate(-90deg);
+    opacity: 0;
+}
+
+.channel-fileinput-add {
+    position: absolute;
+    width: 18px;
+    left: 19px;
+    top: 19px;
+    transition: all 250ms;
+    transform-origin: 50% 200%;
+    transform: rotate(90deg);
+}
+
+.file-channel-thumbnail + .py-form-filelabel:hover .channel-fileinput-add {
+    transform: rotate(0deg);
+}
+
+/* Video thumbnail file */
+.file-video-thumbnail + .py-form-filelabel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 200px;
+    background-color: var(--grey-lighter);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.file-video-thumbnail:focus + .py-form-filelabel,
+.file-video-thumbnail + .py-form-filelabel:hover {
+
+}
+
+.file-video-dragarea {
+    position: absolute;
+    display: block;
+    pointer-events: none;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+    border-radius: 4px;
+    border: 1px dashed var(--grey-light);
+    transition: ease 250ms;
+    z-index: 5;
+}
+
+.file-video-thumbnail + .py-form-filelabel:hover .file-video-dragarea {
+    border-color: var(--main);
+}
+
+.file-video-text {
+    font-size: 13px;
+    color: var(--grey);
+    display: inline-block;
+    font-weight: 600;
+    transition: ease 250ms;
+    opacity: 1;
+}
+
+.file-video-thumbnail + .py-form-filelabel:hover .file-video-text {
+    opacity: 0;
+}
+
+.file-video-illu {
+    width: 68px;
+    margin-bottom: 24px;
+    transition: ease 250ms;
+}
+
+.file-video-thumbnail + .py-form-filelabel:hover .file-video-illu {
+    transform: scale(1.3) rotate(-5deg);
+    transform-origin: 50% 50%;
+}
+
+.file-video-catpaw {
+    transform: rotate(-45deg);
+    position: absolute;
+    right: -40%;
+    bottom: -100%;
+    transition: ease 250ms;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.file-video-thumbnail + .py-form-filelabel:hover .file-video-catpaw {
+    right: 0px;
+    bottom: -45%;
+    opacity: 1;
+}
+
+/* //////// */
+
+.row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.row .py-form-group {
+    margin-bottom: 0;
+}
