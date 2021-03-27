@@ -78,16 +78,9 @@ let channelThumbnailBase64 = null
 const preview = document.querySelector('.preview-channel-thumbnail');
 const previewVideo = document.querySelector('.preview-video-thumbnail');
 
-
-// Init value from chrome store
-chrome.storage.local.get('randomPosition', function (result) {
-  console.log(result)
-  console.log(randomButton.checked = result.randomPosition)
-  randomButton.attributes.checked = result.randomPosition
-})
-
 initInputs();
 
+// Init value from chrome store
 function initInputs() {
     chrome.storage.local.get("thumbnailProperties", (result) => {
         var storedThumbnail = result.thumbnailProperties;
