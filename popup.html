@@ -3,43 +3,117 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="button.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;900&display=swap" rel="stylesheet">
   </head>
   <body>
-  <span id="extErrorMessage" style="color:red"></span>
-  
-  <div>
-    <label>
-      Channel name<br/>
-      <input class="js-channel-name-input" type="text" name="title"/>
-    </label>
-  </div>
+      <div class="py-container">
 
-  <div>
-    <label>
-      Channel Thumbnail<br/>
-      <input class="js-channel-thumbnail-input" type="file" name="title"/>
-      <img src="/" alt="channel thumbnail" class="preview-channel-thumbnail"/>
-    </label>
-  </div>
+          <div class="py-secondary-button darkmode-button">
+              <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M18.299 15.581C17.4142 15.8534 16.4742 16 15.5 16C10.2533 16 6 11.7467 6 6.50002C6 4.043 6.93276 1.80383 8.4635 0.117311C3.67009 0.85649 0 4.99965 0 10C0 15.5228 4.47715 20 10 20C13.4562 20 16.5028 18.2467 18.299 15.581Z" fill="#A7A3C2"/>
+              </svg>
+          </div>
+
+          <div class="py-secondary-button reset-button js-reset-btn">
+              <svg width="19" height="19" viewBox="0 0 19 19" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.51087 1.077e-05C11.9501 -0.00362783 14.2959 0.937756 16.0563 2.6267L17.4259 1.25658C17.555 1.12824 17.7192 1.04093 17.8977 1.00563C18.0763 0.970326 18.2613 0.988607 18.4294 1.05817C18.5976 1.12774 18.7415 1.24549 18.843 1.39662C18.9445 1.54775 18.9991 1.72552 18.9999 1.90758V7.04742C19.0019 7.1687 18.98 7.28919 18.9354 7.402C18.8909 7.51481 18.8245 7.61774 18.7402 7.70491C18.6559 7.79207 18.5552 7.86177 18.444 7.91001C18.3327 7.95825 18.2131 7.98409 18.0918 7.98607H12.9538C12.7718 7.98527 12.5941 7.93068 12.4431 7.82915C12.292 7.72762 12.1743 7.58369 12.1047 7.41543C12.0352 7.24718 12.0169 7.06212 12.0522 6.88351C12.0875 6.70489 12.1748 6.5407 12.3031 6.41156L13.9073 4.81435C12.7354 3.70522 11.1846 3.08522 9.57141 3.08089C8.52513 3.06588 7.49096 3.30616 6.5584 3.78093C5.62583 4.2557 4.82297 4.95065 4.21929 5.80565C3.61562 6.66064 3.22931 7.64992 3.09381 8.68787C2.95831 9.72582 3.07769 10.7812 3.44163 11.7626C3.80557 12.744 4.4031 13.6219 5.18251 14.3203C5.96191 15.0187 6.89972 15.5166 7.91475 15.7709C8.92979 16.0252 9.99148 16.0282 11.0079 15.7797C12.0244 15.5312 12.965 15.0386 13.7484 14.3446C13.8329 14.2637 13.9454 14.2185 14.0624 14.2185C14.1794 14.2185 14.2919 14.2637 14.3764 14.3446L15.8898 15.8586C15.9347 15.9017 15.9704 15.9534 15.9948 16.0106C16.0192 16.0679 16.0317 16.1294 16.0317 16.1916C16.0317 16.2539 16.0192 16.3154 15.9948 16.3727C15.9704 16.4299 15.9347 16.4816 15.8898 16.5247C14.7485 17.5642 13.3711 18.3097 11.8768 18.6967C10.3826 19.0838 8.81658 19.1006 7.31438 18.7458C5.81217 18.391 4.41905 17.6752 3.25565 16.6605C2.09225 15.6458 1.19363 14.3627 0.6376 12.9223C0.0815684 11.4819 -0.115116 9.9276 0.064576 8.39403C0.244268 6.86046 0.794922 5.39382 1.66886 4.12109C2.54279 2.84837 3.71367 1.80792 5.08011 1.08984C6.44655 0.371759 7.96736 -0.00231401 9.51087 1.077e-05Z" fill="#A7A3C2"/>
+              </svg>
+          </div>
 
 
-  <div>
-      <label>
-        Title<br/>
-        <input class="js-title-input" type="text" name="title"/>
-      </label>
-    </div>
+          <div class="py-header">
+              <img src="images/eyes-state-01.svg" class="py-header-eyes" alt="">
+              <div class='py-header-title'>PrevYou</div>
+              <p class='py-header-text'>Made on Twitch with ❤️ <br />by <a href="https://twitter.com/benjamincodeYT" target="_blank">BenjaminCode</a> & <a href="https://twitter.com/BastiUi" target="_blank">BastiUi</a> </p>
+          </div>
+          <div class="row">
+              <div class="py-form-group c-thumb">
+                <input class="js-channel-thumbnail-input py-form-file file-channel-thumbnail" type="file" id="channel-thumbnail" name="channel-thumbnail" required/>
+                <label class="py-form-filelabel" for="channel-thumbnail">
+                    <img src="/" class="channel-fileinput-img preview-channel-thumbnail"/>
+                    <img src="images/channel-fileinput-user.svg" class="channel-fileinput-user" alt="">
+                    <img src="images/channel-fileinput-add.svg" class="channel-fileinput-add" alt="">
+                </label>
+              </div>
 
-    <div>
-      <label>
-        Thumbnail<br/>
-        <input type="file" class="js-thumbnail-input" name="thumbnail"/>
-      </label>
-    </div>
+              <div class="py-form-group">
+                <input class="js-channel-name-input py-form-field" type="text" name="channel-name" required/>
+                <label class="py-form-label" for="channel-name">Channel name</label>
+              </div>
+          </div>
 
-    <button class="js-find-card">Go!</button>
+          <div class="py-form-group v-thumb">
+            <input type="file" class="js-thumbnail-input py-form-file file-video-thumbnail" id="video-thumbnail" name="video-thumbnail" required/>
+            <label class="py-form-filelabel" for="video-thumbnail">
+                <img src="/" class="video-fileinput-img preview-video-thumbnail"/>
+                <span class="file-video-dragarea"></span>
+                <img src="images/illu-video-fileinput.svg" class="file-video-illu" alt="">
+                <span class="file-video-text">Drop thumbnail here</span>
+                <img src="images/cat-paw.svg" class="file-video-catpaw" alt="">
+            </label>
+          </div>
 
+          <div class="py-form-group">
+            <input class="js-title-input py-form-field" type="text" name="video-title" required/>
+            <label class="py-form-label" for="video-title">Video title</label>
+          </div>
 
+          <div class="js-find-card py-button">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" class="py-button-icon" xmlns="http://www.w3.org/2000/svg">
+                  <g filter="url(#filter0_i)">
+                      <ellipse cx="22.5" cy="15" rx="5.5" ry="9" fill="#F8F5FF"/>
+                  </g>
+                  <path d="M27.75 15C27.75 17.4469 27.1434 19.6502 26.1758 21.2336C25.2055 22.8213 23.8987 23.75 22.5 23.75C21.1013 23.75 19.7945 22.8213 18.8242 21.2336C17.8566 19.6502 17.25 17.4469 17.25 15C17.25 12.5531 17.8566 10.3498 18.8242 8.7664C19.7945 7.17875 21.1013 6.25 22.5 6.25C23.8987 6.25 25.2055 7.17875 26.1758 8.7664C27.1434 10.3498 27.75 12.5531 27.75 15Z" stroke="#A7A3C2" stroke-width="0.5"/>
+                  <g filter="url(#filter1_i)">
+                      <ellipse cx="9.5" cy="15" rx="5.5" ry="9" fill="#F8F5FF"/>
+                  </g>
+                  <path d="M14.75 15C14.75 17.4469 14.1434 19.6502 13.1758 21.2336C12.2055 22.8213 10.8987 23.75 9.5 23.75C8.10127 23.75 6.79447 22.8213 5.82423 21.2336C4.85662 19.6502 4.25 17.4469 4.25 15C4.25 12.5531 4.85662 10.3498 5.82423 8.7664C6.79447 7.17875 8.10127 6.25 9.5 6.25C10.8987 6.25 12.2055 7.17875 13.1758 8.7664C14.1434 10.3498 14.75 12.5531 14.75 15Z" stroke="#A7A3C2" stroke-width="0.5"/>
+                  <circle cx="20" cy="15" r="2.75" fill="url(#paint0_linear)" stroke="#541F00" stroke-width="0.5"/>
+                  <circle cx="20" cy="15" r="2" fill="#251000"/>
+                  <circle cx="7" cy="15" r="2.75" fill="url(#paint1_linear)" stroke="#541F00" stroke-width="0.5"/>
+                  <circle cx="19" cy="14" r="1" fill="white"/>
+                  <circle cx="7" cy="15" r="2" fill="#251000"/>
+                  <circle cx="6" cy="14" r="1" fill="white"/>
+                  <defs>
+                      <filter id="filter0_i" x="17" y="6" width="11" height="18" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                          <feMorphology radius="1" operator="erode" in="SourceAlpha" result="effect1_innerShadow"/>
+                          <feOffset/>
+                          <feGaussianBlur stdDeviation="0.5"/>
+                          <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+                          <feColorMatrix type="matrix" values="0 0 0 0 0.654902 0 0 0 0 0.639216 0 0 0 0 0.760784 0 0 0 0.5 0"/>
+                          <feBlend mode="normal" in2="shape" result="effect1_innerShadow"/>
+                      </filter>
+                      <filter id="filter1_i" x="4" y="6" width="11" height="18" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                          <feMorphology radius="1" operator="erode" in="SourceAlpha" result="effect1_innerShadow"/>
+                          <feOffset/>
+                          <feGaussianBlur stdDeviation="0.5"/>
+                          <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+                          <feColorMatrix type="matrix" values="0 0 0 0 0.654902 0 0 0 0 0.639216 0 0 0 0 0.760784 0 0 0 0.5 0"/>
+                          <feBlend mode="normal" in2="shape" result="effect1_innerShadow"/>
+                      </filter>
+                      <linearGradient id="paint0_linear" x1="20" y1="12" x2="20" y2="18" gradientUnits="userSpaceOnUse">
+                          <stop stop-color="#642E00"/>
+                          <stop offset="1" stop-color="#FFC700"/>
+                      </linearGradient>
+                      <linearGradient id="paint1_linear" x1="7" y1="12" x2="7" y2="18" gradientUnits="userSpaceOnUse">
+                          <stop stop-color="#642E00"/>
+                          <stop offset="1" stop-color="#FFC700"/>
+                      </linearGradient>
+                  </defs>
+              </svg>
+              <span>Preview</span>
+              <div class="py-dice js-shuffle"><div>🎲</div></div>
+          </div>
+          <span id="extErrorMessage" class="py-error" style="color:red"></span>
+      </div>
     <script src="popup.js"></script>
   </body>
 </html>
