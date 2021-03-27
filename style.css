@@ -34,6 +34,8 @@ body {
     font-weight: 600;
     border-radius: 8px;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
     text-align: center;
     transition: all 150ms ease;
     -webkit-appearance: none;
@@ -41,12 +43,51 @@ body {
     width: 100%;
 }
 
+.py-button circle {
+    transition: transform 150ms ease;
+}
+
+.py-button > span {
+    transition: transform 300ms ease;
+    display: inline-block;
+}
+
 .py-button:hover {
-    padding: 10px 12px 14px;
     box-shadow: 0px -4px 0px 0px var(--main-darker) inset;
     -webkit-box-shadow: 0px -4px 0px 0px var(--main-darker) inset;
     -moz-box-shadow: 0px -4px 0px 0px var(--main-darker) inset;
 }
+
+.py-button:hover circle {
+    transform: translateX(5px);
+}
+
+.py-button:hover > span {
+    transform: translateX(-5px);
+}
+
+.py-dice {
+    font-size: 32px;
+    position: absolute;
+    right: 0;
+    transform: translateX(100%);
+    padding: 0 10px;
+    transition: transform 600ms ease-out;
+}
+
+.py-dice:hover div {
+    animation: diceShaking 150ms infinite alternate linear;
+}
+
+
+.py-button:hover .py-dice {
+    transform: translate(50%);
+}
+
+.py-dice:hover {
+    transform: translateX(0%)!important;
+}
+
 
 .py-button-icon {
     margin-right: 12px;
@@ -214,7 +255,8 @@ input {
     transform: translateY(-50%);
 }
 
-.file-channel-thumbnail:valid + .py-form-filelabel .channel-fileinput-img {
+.file-channel-thumbnail:valid + .py-form-filelabel .channel-fileinput-img,
+.file-channel-thumbnail.loaded + .py-form-filelabel .channel-fileinput-img{
     display: block;
 }
 
@@ -248,7 +290,9 @@ input {
 }
 
 .file-channel-thumbnail:valid + .py-form-filelabel .channel-fileinput-user,
-.file-channel-thumbnail:valid + .py-form-filelabel .channel-fileinput-add {
+.file-channel-thumbnail:valid + .py-form-filelabel .channel-fileinput-add,
+.file-channel-thumbnail.loaded + .py-form-filelabel .channel-fileinput-user,
+.file-channel-thumbnail.loaded + .py-form-filelabel .channel-fileinput-add{
     display: none;
 }
 
@@ -281,7 +325,8 @@ input {
     max-width: 100%;
 }
 
-.file-video-thumbnail:valid + .py-form-filelabel .video-fileinput-img {
+.file-video-thumbnail:valid + .py-form-filelabel .video-fileinput-img,
+.file-video-thumbnail.loaded + .py-form-filelabel .video-fileinput-img {
     display: block;
 }
 
@@ -353,4 +398,15 @@ input {
 
 .row .py-form-group {
     margin-bottom: 0;
+}
+
+
+@keyframes diceShaking {
+    0% {
+        transform: rotate(8deg);
+    }
+
+    100% {
+        transform: rotate(-8deg);
+    }
 }
