@@ -203,6 +203,18 @@ input {
     background-color: var(--grey-light);
 }
 
+.channel-fileinput-img {
+    position: relative;
+    z-index: 10;
+    display: none;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.file-channel-thumbnail:valid + .py-form-filelabel .channel-fileinput-img {
+    display: block;
+}
+
 .channel-fileinput-user {
     position: absolute;
     width: 30px;
@@ -232,6 +244,11 @@ input {
     transform: rotate(0deg);
 }
 
+.file-channel-thumbnail:valid + .py-form-filelabel .channel-fileinput-user,
+.file-channel-thumbnail:valid + .py-form-filelabel .channel-fileinput-add {
+    display: none;
+}
+
 /* Video thumbnail file */
 .file-video-thumbnail + .py-form-filelabel {
     display: flex;
@@ -250,6 +267,19 @@ input {
 .file-video-thumbnail:focus + .py-form-filelabel,
 .file-video-thumbnail + .py-form-filelabel:hover {
 
+}
+
+.video-fileinput-img {
+    position: absolute;
+    z-index: 10;
+    display: none;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 100%;
+}
+
+.file-video-thumbnail:valid + .py-form-filelabel .video-fileinput-img {
+    display: block;
 }
 
 .file-video-dragarea {

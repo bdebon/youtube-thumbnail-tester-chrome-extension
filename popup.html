@@ -30,9 +30,9 @@
           </div>
           <div class="row">
               <div class="py-form-group c-thumb">
-                <input class="js-channel-thumbnail-input py-form-file file-channel-thumbnail" type="file" id="channel-thumbnail" name="channel-thumbnail"/>
+                <input class="js-channel-thumbnail-input py-form-file file-channel-thumbnail" type="file" id="channel-thumbnail" name="channel-thumbnail" required/>
                 <label class="py-form-filelabel" for="channel-thumbnail">
-                    <!-- <img src="/" class="file-channel-img preview-channel-thumbnail"/> -->
+                    <img src="/" class="channel-fileinput-img preview-channel-thumbnail"/>
                     <img src="images/channel-fileinput-user.svg" class="channel-fileinput-user" alt="">
                     <img src="images/channel-fileinput-add.svg" class="channel-fileinput-add" alt="">
                 </label>
@@ -45,8 +45,9 @@
           </div>
 
           <div class="py-form-group v-thumb">
-            <input type="file" class="js-thumbnail-input py-form-file file-video-thumbnail" id="video-thumbnail" name="video-thumbnail"/>
+            <input type="file" class="js-thumbnail-input py-form-file file-video-thumbnail" id="video-thumbnail" name="video-thumbnail" required/>
             <label class="py-form-filelabel" for="video-thumbnail">
+                <img src="/" class="video-fileinput-img preview-video-thumbnail"/>
                 <span class="file-video-dragarea"></span>
                 <img src="images/illu-video-fileinput.svg" class="file-video-illu" alt="">
                 <span class="file-video-text">Drop thumbnail here</span>
