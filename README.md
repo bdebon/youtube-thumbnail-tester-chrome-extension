@@ -10,6 +10,13 @@
 
 Then you should see the extension was installed
 
+## Things to improve
+- [ ] Dark mode
+- [ ] The app needs an icon because for now we use the default google one...
+- [ ] Install a linter on the project so that we all can collaborate without having so many useless changes to review
+- [ ] Creating tests ? (even if @liior tried for one hour without any success)
+- [ ] Animation on the YouTube Homepage to show where the thumbnail is updated. Like a scale up scale down on the thumbnail for example.
+
 
 ## Credits
 Made by benjamincode live on Twitch :
