@@ -76,12 +76,10 @@ body {
 .py-container {
     position: relative;
     width: 400px;
-    border-radius: 16px;
     border: none;
     background-color: #fff;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    margin: 40px;
-    padding: 32px 24px;
+    padding: 16px 24px;
 }
 
 .reset-button {
@@ -183,6 +181,11 @@ input {
 	overflow: hidden;
 	position: absolute;
 	z-index: -1;
+}
+
+.py-error {
+    display: block;
+    margin-top: 12px;
 }
 
 /* Channel file */
