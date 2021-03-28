@@ -11,7 +11,12 @@
   --grey-light: #D5CEEA;
   --grey-lighter: #F8F5FF;
   --black: #2A2C40;
-  --black-alt : #161827;
+
+  
+  --bg: #FFFFFF;            /*Dark/Light Mode :*/
+  --btnBg: #F8F5FF;         /* these custom properties are the colors that changes*/
+  --formText: #000000;      /* when we switch from one mod to another */
+  --headerColor : #161827;  /* JS is binded to them for easy switch*/
 }
 
 body {
@@ -106,7 +111,7 @@ body {
 }
 
 .py-secondary-button:hover {
-    background-color: var(--grey-lighter);
+    background-color: var(--btnBg);
 }
 
 .py-secondary-button svg * { transition: all 150ms; }
@@ -118,9 +123,10 @@ body {
     position: relative;
     width: 400px;
     border: none;
-    background-color: #fff;
+    background-color: var(--bg);
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     padding: 16px 24px;
+    transition : background-color 250ms;
 }
 
 .reset-button {
@@ -149,7 +155,7 @@ body {
 
 .py-header-title {
     font-size: 24px;
-    color: var(--black-alt);
+    color: var(--headerColor);
     font-weight: 900;
     margin-bottom: 4px;
 }
@@ -200,7 +206,8 @@ input {
     font-size: 15px;
     height: 40px;
     outline: 0;
-    color: var(--black);
+    color: var(--formText);
+    transition: color 250ms;
 }
 
 .py-form-field:focus {
@@ -239,7 +246,7 @@ input {
     cursor: pointer;
     border-radius: 50%;
     transition: all 250ms;
-    background-color: var(--grey-lighter);
+    background-color: var(--btnBg);
 }
 
 .file-channel-thumbnail:focus + .py-form-filelabel,
@@ -304,11 +311,12 @@ input {
     justify-content: center;
     width: 100%;
     height: 200px;
-    background-color: var(--grey-lighter);
+    background-color: var(--btnBg);
     border-radius: 4px;
     overflow: hidden;
     position: relative;
     cursor: pointer;
+    transition: background-color 350ms;
 }
 
 .file-video-thumbnail:focus + .py-form-filelabel,
