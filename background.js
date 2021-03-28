@@ -1,4 +1,4 @@
-let color = "#3aa757";
+let color = '#3aa757';
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.sync.set({ color });
@@ -10,8 +10,6 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.tabs.onActivated.addListener(async (info) => {
     const tab = await chrome.tabs.get(info.tabId);
     const isYoutube = tab.url.startsWith("https://www.youtube.com/");
-    console.log(tab.url);
-    console.log(isYoutube);
     
     //Disable actions on the extension if the url retrieved is not https://www.youtube.com/
     isYoutube
@@ -20,11 +18,9 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 
   //Event listener when a tab is updated
-  chrome.tabs.onUpdated.addListener(async (info) => {
-    const tab = await chrome.tabs.get(info.tabId);
+  chrome.tabs.onUpdated.addListener(async (tabId) => {
+    const tab = await chrome.tabs.get(tabId);
     const isYoutube = tab.url.startsWith("https://www.youtube.com/");
-    console.log(tab.url);
-    console.log(isYoutube);
     
     isYoutube
       ? chrome.action.enable(tab.tabId)
