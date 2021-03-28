@@ -5,14 +5,15 @@
 }
 
 :root {
-  --main: #6116FF;
-  --main-darker: #24008C;
+ 
   --grey: #A7A3C2;
   --grey-light: #D5CEEA;
   --grey-lighter: #F8F5FF;
   --black: #2A2C40;
+  --main :#6116FF ;
 
-  
+  --btnColor: #6116FF;
+  --btnBorder: #24008C;
   --bg: #FFFFFF;            /*Dark/Light Mode :*/
   --btnBg: #F8F5FF;         /* these custom properties are the colors that changes*/
   --formText: #000000;      /* when we switch from one mod to another */
@@ -32,7 +33,7 @@ body {
     padding: 12px;
     margin: 0;
     text-decoration: none;
-    background: var(--main);
+    background: var(--btnColor);
     color: #fff;
     font-family: 'Epilogue', sans-serif;
     font-size: 15px;
@@ -58,9 +59,9 @@ body {
 }
 
 .py-button:hover {
-    box-shadow: 0px -4px 0px 0px var(--main-darker) inset;
-    -webkit-box-shadow: 0px -4px 0px 0px var(--main-darker) inset;
-    -moz-box-shadow: 0px -4px 0px 0px var(--main-darker) inset;
+    box-shadow: 0px -4px 0px 0px var(--btnBorder) inset;
+    -webkit-box-shadow: 0px -4px 0px 0px var(--btnBorder) inset;
+    -moz-box-shadow: 0px -4px 0px 0px var(--btnBorder) inset;
 }
 
 .py-button:hover circle {
