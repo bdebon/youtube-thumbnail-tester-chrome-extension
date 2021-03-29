@@ -19,7 +19,8 @@ const root = document.documentElement // to easily access and modify CSS custom 
 // return 'on' or null depending of the existence of a 'darkMode' key on LocalStorage
 window.onload = () =>{ 
     if ( isDarkModeOn() == "on" ){ 
-        darkMode();
+        setTimeout(darkMode,
+        300);
     }
 } 
 
