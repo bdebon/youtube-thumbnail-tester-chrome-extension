@@ -4,6 +4,7 @@
   "description": "youtube-thumbnail-tester-chrome-extension",
   "main": "popup.js",
   "scripts": {
+    "lint": "./node_modules/.bin/eslint popup.js --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -12,16 +12,16 @@ Then you should see the extension was installed
 
 ## Linter - ESLint
 
-Pour installer le linter ESlint
+To install ESLint launch 
 
 ```
 npm install
 ```
 
-Pour exécuter le linter lancer 
+To execute and fix all sysntaxe error launche
 
 ```
-./node_modules/.bin/eslint popup.js
+npm run lint
 ```
 
 #### Configuration
