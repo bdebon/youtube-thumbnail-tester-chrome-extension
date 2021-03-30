@@ -16,6 +16,7 @@ Then you should see the extension was installed
 - [ ] Install a linter on the project so that we all can collaborate without having so many useless changes to review
 - [ ] Creating tests ? (even if @liior tried for one hour without any success)
 - [ ] Animation on the YouTube Homepage to show where the thumbnail is updated. Like a scale up scale down on the thumbnail for example.
+- [ ] Integrating the V2.0 of the design made by BastiUI https://www.figma.com/file/lceF92oVJ4QRAbnfddO5FL/BastiUi-%E2%80%A2-PrevYou?node-id=116%3A56
 
 
 ## Credits
