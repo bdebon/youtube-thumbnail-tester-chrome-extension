@@ -15,96 +15,6 @@ const eyesPupils = document.querySelectorAll('.js-animated-eyes')
 
 // =============================================
 
-let eyeCoord = headerEye.getBoundingClientRect();
-let centerOfEyeX = Math.round(( ( eyeCoord.right - eyeCoord.left ) / 2 ) + eyeCoord.left);
-let centerOfEyeY = Math.round(( ( eyeCoord.bottom - eyeCoord.top ) / 2 ) + eyeCoord.top);
-
-document.addEventListener('mousemove', (e) =>{
-   let mouseX = e.clientX;
-   let mouseY = e.clientY;
-   let eyeDirection;
-
-     
-    eyeDirection = mouseY < centerOfEyeY ? "N" : "S";
-    eyeDirection += mouseX < centerOfEyeX ? "W" : "E";
-    
-    
-    if (  centerOfEyeX-10 < mouseX && mouseX < centerOfEyeX +10 ){
-        if (mouseY > centerOfEyeY ){
-        eyeDirection = "S";
-    }}
-
-    if (  centerOfEyeX-10 < mouseX && mouseX < centerOfEyeX +10 ){
-        if (mouseY < centerOfEyeY ){
-        eyeDirection = "N";
-    }}
-
-    if (  centerOfEyeY-10 < mouseY && mouseY < centerOfEyeY +10 ){
-        if (mouseX > centerOfEyeX ){
-        eyeDirection = "E";
-    }}
-
-    if (  centerOfEyeY-10 < mouseY && mouseY < centerOfEyeY +10 ){
-        if (mouseX < centerOfEyeX ){
-        eyeDirection = "W";
-    }}
-
-    if (  centerOfEyeY-10 < mouseY && mouseY < centerOfEyeY +10 ){
-        if ( centerOfEyeX-10 < mouseX && mouseX < centerOfEyeX +10  ){
-        eyeDirection = "C";
-    }}
-
-   switch (eyeDirection) {
-        case "N" :
-            for (let pupils of eyesPupils){
-                pupils.style.setProperty('transform', 'translate(2px, -5px)')};
-        break;
-
-       case "NE" :
-           for (let pupils of eyesPupils){
-               pupils.style.setProperty('transform', 'translate(4px, -4px)')};
-        break;
-
-        case "E" :
-            for (let pupils of eyesPupils){
-                pupils.style.setProperty('transform', 'translate(4px, 0px)')};
-        break;
-
-        case "SE" :
-            for (let pupils of eyesPupils){
-                pupils.style.setProperty('transform', 'translate(4px, 4px)')};
-        break;
-
-        case "S" :
-            for (let pupils of eyesPupils){
-                pupils.style.setProperty('transform', 'translate(2px, 5px)')};
-        break;
-
-        case "SW" :
-            for (let pupils of eyesPupils){
-                pupils.style.setProperty('transform', 'translate(0px, 4px)')};
-        break;
-
-        case "W" :
-            for (let pupils of eyesPupils){
-                pupils.style.setProperty('transform', 'translate(0px, 0px)')};
-        break;
-
-        case "NW" :
-            for (let pupils of eyesPupils){
-                pupils.style.setProperty('transform', 'translate(0px, -4px)')};
-        break;
-
-        case "C" :
-            for (let pupils of eyesPupils){
-                pupils.style.setProperty('transform', 'translate(2px, 0px)')};
-        break;
-   
-}
-
-   
-})
-
 // =============================================
 // DARK/LIGHT MODE handler
 
@@ -373,3 +283,90 @@ function refreshApp() {
     thumbnailInput.value = null
 }
 
+// =============================================
+// ANIMATED EYES
+
+//First, we find the eyes position and their center :
+let eyeCoord = headerEye.getBoundingClientRect();
+let centerOfEyeX = Math.round(( ( eyeCoord.right - eyeCoord.left ) / 2 ) + eyeCoord.left);
+let centerOfEyeY = Math.round(( ( eyeCoord.bottom - eyeCoord.top ) / 2 ) + eyeCoord.top);
+
+
+//on mousemove, we locate the mouse position and compare its X & Y coordinates to eyes' center.
+// let=eyeDirection indicate the eyes direction in a "North, South, South East etc..." mode
+
+document.addEventListener('mousemove', (e) =>{
+    let mouseX = e.clientX;
+    let mouseY = e.clientY;
+    let eyeDirection;
+
+     
+    eyeDirection = mouseY < centerOfEyeY ? "N" : "S";
+    eyeDirection += mouseX < centerOfEyeX ? "W" : "E";
+     
+    if ( approx ( mouseX, centerOfEyeX ) ){
+        if ( mouseY > centerOfEyeY ){
+            eyeDirection = "S";
+    }   else {
+            eyeDirection = "N";
+    }}
+
+    if (  approx ( mouseY, centerOfEyeY ) ){
+        if ( mouseX > centerOfEyeX ){
+            eyeDirection = "E";
+    }   else {
+            eyeDirection = "W";
+    }}
+
+    if (  approx ( mouseY, centerOfEyeY ) && approx ( mouseX, centerOfEyeX )){
+        eyeDirection = "C";
+    }
+
+    // due "North", "South" etc ... are calculate on an approximative direction ( eyes' center +/- 10 px )
+    function approx(nbToCompare, nbToApprox){
+        return (  nbToApprox-10 < nbToCompare && nbToCompare < nbToApprox + 10)
+    }
+
+
+    function wichDirection(cases){
+
+     switch (cases) {
+        case "N" : 
+            return "(2px, -5px)";
+    
+       case "NE" :
+            return "(4px, -4px)";
+     
+        case "E" :
+            return "(4px, 0px)";
+       
+        case "SE" :
+            return "(4px, 4px)";
+       
+        case "S" :
+            return "(2px, 5px)";
+       
+        case "SW" :
+            return "(0px, 4px)";
+      
+        case "W" :
+            return "(0px, 0px)";
+    
+        case "NW" :
+           return "(0px, -4px)";
+    
+        case "C" :
+            return "(2px, 0px)";
+       
+    }
+    }
+
+    function setPupilsDirection(dir){
+     for (let pupils of eyesPupils){
+         pupils.style.setProperty('transform', 'translate'+(dir));
+         
+        }
+    }
+
+    setPupilsDirection(wichDirection(eyeDirection));
+})
