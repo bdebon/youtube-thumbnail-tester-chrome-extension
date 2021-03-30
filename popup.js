@@ -123,6 +123,24 @@ async function launchScript(shuffle = false) {
     const title = titleInput.value
     const channelName = channelNameInput.value
 
+    const css = `
+    @keyframes jump {
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(1.02);
+        }
+    }
+    `;
+    console.log(tab.id)
+    chrome.scripting.insertCSS(
+        {
+            target: { tabId: tab.id },
+            css: css,
+        })
+
+
     try {
         console.log(shuffle)
         chrome.storage.local.set({
@@ -209,6 +227,8 @@ function findCard(shuffle = false) {
             cardPositionIndex = Math.floor(Math.random() * (max - min + 1)) + min
         }
         let target = cards[cardPositionIndex]
+
+        target.querySelector('ytd-thumbnail').style ='animation: 0.4s ease 0s infinite alternate none running jump;'
 
         // If the user is on another site than YT
         if (typeof (target) === "undefined") {
