@@ -10,7 +10,100 @@ const thumbnailInput = document.querySelector('.js-thumbnail-input')
 const errorMessageSpan = document.querySelector("#extErrorMessage")
 const darkModeBtn = document.querySelector('.js-darkmode-btn')
 const root = document.documentElement // to easily access and modify CSS custom properties for Dark/Light Mode
+const headerEye = document.querySelector('.js-header-eyes')
+const eyesPupils = document.querySelectorAll('.js-animated-eyes')
+
 // =============================================
+
+let eyeCoord = headerEye.getBoundingClientRect();
+let centerOfEyeX = Math.round(( ( eyeCoord.right - eyeCoord.left ) / 2 ) + eyeCoord.left);
+let centerOfEyeY = Math.round(( ( eyeCoord.bottom - eyeCoord.top ) / 2 ) + eyeCoord.top);
+
+document.addEventListener('mousemove', (e) =>{
+   let mouseX = e.clientX;
+   let mouseY = e.clientY;
+   let eyeDirection;
+
+     
+    eyeDirection = mouseY < centerOfEyeY ? "N" : "S";
+    eyeDirection += mouseX < centerOfEyeX ? "W" : "E";
+    
+    
+    if (  centerOfEyeX-10 < mouseX && mouseX < centerOfEyeX +10 ){
+        if (mouseY > centerOfEyeY ){
+        eyeDirection = "S";
+    }}
+
+    if (  centerOfEyeX-10 < mouseX && mouseX < centerOfEyeX +10 ){
+        if (mouseY < centerOfEyeY ){
+        eyeDirection = "N";
+    }}
+
+    if (  centerOfEyeY-10 < mouseY && mouseY < centerOfEyeY +10 ){
+        if (mouseX > centerOfEyeX ){
+        eyeDirection = "E";
+    }}
+
+    if (  centerOfEyeY-10 < mouseY && mouseY < centerOfEyeY +10 ){
+        if (mouseX < centerOfEyeX ){
+        eyeDirection = "W";
+    }}
+
+    if (  centerOfEyeY-10 < mouseY && mouseY < centerOfEyeY +10 ){
+        if ( centerOfEyeX-10 < mouseX && mouseX < centerOfEyeX +10  ){
+        eyeDirection = "C";
+    }}
+
+   switch (eyeDirection) {
+        case "N" :
+            for (let pupils of eyesPupils){
+                pupils.style.setProperty('transform', 'translate(2px, -5px)')};
+        break;
+
+       case "NE" :
+           for (let pupils of eyesPupils){
+               pupils.style.setProperty('transform', 'translate(4px, -4px)')};
+        break;
+
+        case "E" :
+            for (let pupils of eyesPupils){
+                pupils.style.setProperty('transform', 'translate(4px, 0px)')};
+        break;
+
+        case "SE" :
+            for (let pupils of eyesPupils){
+                pupils.style.setProperty('transform', 'translate(4px, 4px)')};
+        break;
+
+        case "S" :
+            for (let pupils of eyesPupils){
+                pupils.style.setProperty('transform', 'translate(2px, 5px)')};
+        break;
+
+        case "SW" :
+            for (let pupils of eyesPupils){
+                pupils.style.setProperty('transform', 'translate(0px, 4px)')};
+        break;
+
+        case "W" :
+            for (let pupils of eyesPupils){
+                pupils.style.setProperty('transform', 'translate(0px, 0px)')};
+        break;
+
+        case "NW" :
+            for (let pupils of eyesPupils){
+                pupils.style.setProperty('transform', 'translate(0px, -4px)')};
+        break;
+
+        case "C" :
+            for (let pupils of eyesPupils){
+                pupils.style.setProperty('transform', 'translate(2px, 0px)')};
+        break;
+   
+}
+
+   
+})
 
 // =============================================
 // DARK/LIGHT MODE handler

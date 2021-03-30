@@ -148,11 +148,19 @@ body {
     align-items: center;
     text-align: center;
     margin-bottom: 32px;
+    transition : all 2s;
 }
 
-.py-header-eyes {
-    width: 48px;
+.py-header-eyes circle {
+    transition: all 150ms ease;
 }
+
+.py-header-eyes:hover circle  {
+    transform: translateX(5px);
+}
+
+
+
 
 .py-header-title {
     font-size: 24px;
