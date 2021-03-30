@@ -18,7 +18,7 @@ To install ESLint launch
 npm install
 ```
 
-To execute and fix all sysntaxe error launche
+To execute and fix all syntaxes error launch
 
 ```
 npm run lint
