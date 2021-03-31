@@ -34,7 +34,7 @@ La configuration est dans le fichier ``.eslintrc.json``
 - [Disallow Unused Variables](https://eslint.org/docs/rules/no-unused-vars)
 
 ## Things to improve
-- [ ] Dark mode
+- [x] Dark mode
 - [ ] The app needs an icon because for now we use the default google one...
 - [ ] Install a linter on the project so that we all can collaborate without having so many useless changes to review
 - [ ] Creating tests ? (even if @liior tried for one hour without any success)
