@@ -127,8 +127,7 @@ body {
     border: none;
     background-color: var(--bg);
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    padding: 24px;
-    padding-bottom: 16px;
+    padding: 24px 24px 16px;
     transition : background-color 250ms;
 }
 
