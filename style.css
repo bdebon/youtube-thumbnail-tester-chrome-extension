@@ -32,6 +32,7 @@ body {
     border: none;
     padding: 12px;
     margin: 0;
+    margin-bottom: 16px;
     text-decoration: none;
     background: var(--btnColor);
     color: #fff;
@@ -100,8 +101,8 @@ body {
 }
 
 .py-secondary-button {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,7 +127,8 @@ body {
     border: none;
     background-color: var(--bg);
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    padding: 16px 24px;
+    padding: 24px;
+    padding-bottom: 16px;
     transition : background-color 250ms;
 }
 
@@ -144,11 +146,15 @@ body {
 
 .py-header {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
-    margin-bottom: 32px;
-    transition : all 2s;
+    margin-bottom: 24px;
+}
+
+.py-header-eyes {
+    width: 32px;
+    margin-right: 8px;
 }
 
 .py-header-eyes circle {
@@ -159,23 +165,20 @@ body {
     transform: translateX(5px);
 }
 
-
-
-
 .py-header-title {
     font-size: 24px;
     color: var(--headerColor);
     font-weight: 900;
-    margin-bottom: 4px;
 }
 
-.py-header-text {
+.py-footer {
+    text-align: center;
     font-size: 11px;
     color: var(--grey);
 }
 
-.py-header-text a {
-    color: var(--grey);
+.py-footer a {
+    color: var(--headerColor);
 }
 
 input {
@@ -410,7 +413,7 @@ input {
 }
 
 /* Random position */
-.random-switch {display: flex;}
+.random-switch {display: flex; margin-bottom: 18px;}
 .random-switch.active .py-form-label {color: #181930;}
 
 .switch {
@@ -452,7 +455,7 @@ input:checked + .slider:before {transform: translateX(16px);}
 .row {
     display: flex;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .row .py-form-group {
