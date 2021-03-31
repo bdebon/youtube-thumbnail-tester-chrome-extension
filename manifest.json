@@ -3,9 +3,6 @@
   "description": "Preview your thumbnail and title on YouTube home page !",
   "version": "1.0",
   "manifest_version": 3,
-  "background": {
-    "service_worker": "background.js"
-  },
   "permissions": ["storage", "activeTab", "scripting"],
   "action": {
     "default_popup": "popup.html",
