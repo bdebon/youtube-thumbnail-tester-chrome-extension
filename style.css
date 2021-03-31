@@ -413,7 +413,7 @@ input {
 
 /* Random position */
 .random-switch {display: flex; margin-bottom: 18px;}
-.random-switch.active .py-form-label {color: #181930;}
+.random-switch.active .py-form-label {color: var(--formText);}
 
 .switch {
     display: inline-block;
