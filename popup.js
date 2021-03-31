@@ -10,6 +10,9 @@ const thumbnailInput = document.querySelector('.js-thumbnail-input')
 const errorMessageSpan = document.querySelector("#extErrorMessage")
 const darkModeBtn = document.querySelector('.js-darkmode-btn')
 const root = document.documentElement // to easily access and modify CSS custom properties for Dark/Light Mode
+const headerEye = document.querySelector('.js-header-eyes')
+const eyesPupils = document.querySelectorAll('.js-animated-eyes')
+
 // =============================================
 
 // =============================================
@@ -280,3 +283,84 @@ function refreshApp() {
     thumbnailInput.value = null
 }
 
+// =============================================
+// ANIMATED EYES
+
+//First, we find the eyes position and their center :
+let eyeCoord = headerEye.getBoundingClientRect();
+let centerOfEyeX = Math.round(( ( eyeCoord.right - eyeCoord.left ) / 2 ) + eyeCoord.left);
+let centerOfEyeY = Math.round(( ( eyeCoord.bottom - eyeCoord.top ) / 2 ) + eyeCoord.top);
+
+
+//on mousemove, we locate the mouse position and compare its X & Y coordinates to eyes' center.
+// let=eyeDirection indicate the eyes direction in a "North, South, South East etc..." mode
+
+document.addEventListener('mousemove', (e) =>{
+    let mouseX = e.clientX;
+    let mouseY = e.clientY;
+    let eyeDirection;
+
+     
+    eyeDirection = mouseY < centerOfEyeY ? "N" : "S";
+    eyeDirection += mouseX < centerOfEyeX ? "W" : "E";
+     
+    if ( approx ( mouseX, centerOfEyeX ) ){
+        if ( mouseY > centerOfEyeY ){
+            eyeDirection = "S";
+    }   else {
+            eyeDirection = "N";
+    }}
+
+    if (  approx ( mouseY, centerOfEyeY ) ){
+        if ( mouseX > centerOfEyeX ){
+            eyeDirection = "E";
+    }   else {
+            eyeDirection = "W";
+    }}
+
+    if (  approx ( mouseY, centerOfEyeY ) && approx ( mouseX, centerOfEyeX )){
+        eyeDirection = "C";
+    }
+
+    // due "North", "South" etc ... are calculate on an approximative direction ( eyes' center +/- 10 px )
+    function approx(nbToCompare, nbToApprox){
+        return (  nbToApprox-10 < nbToCompare && nbToCompare < nbToApprox + 10)
+    }
+
+
+    function wichDirection(dir){
+        let direction = {
+            "N" : "(2px, -5px)",
+            "NE" : "(4px, -4px)",
+            "E" : "(5px, 0px)",
+            "SE" : "(4px, 4px)",
+            "S" : "(2px, 5px)",
+            "SW" : "(0px, 4px)",
+            "W" : "(0px, 0px)",
+            "NW" : "(0px, -4px)",
+            "C" : "(2px, 0px)",
+        }
+
+        return direction[dir];
+    }
+
+    const direction = {
+        N : "(2px, -5px)",
+        NE : "(4px, -4px)",
+        E : "(4px, 0px)",
+        SE : "(4px, 4px)",
+        S : "(2px, 5px)",
+        SW : "(0px, 4px)",
+        W : "(0px, 0px)",
+        NW : "(0px, -4px)",
+        C : "(2px, 0px)",
+    }
+    function setPupilsDirection(dir){
+     for (let pupils of eyesPupils){
+         pupils.style.setProperty('transform', 'translate'+(dir));
+         
+        }
+    }
+
+    setPupilsDirection(wichDirection(eyeDirection));
+})
