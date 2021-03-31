@@ -305,18 +305,12 @@ document.addEventListener('mousemove', (e) =>{
     eyeDirection += mouseX < centerOfEyeX ? "W" : "E";
      
     if ( approx ( mouseX, centerOfEyeX ) ){
-        if ( mouseY > centerOfEyeY ){
-            eyeDirection = "S";
-    }   else {
-            eyeDirection = "N";
-    }}
-
+        eyeDirection =  mouseY > centerOfEyeY ? "S" : "N";
+    }
+       
     if (  approx ( mouseY, centerOfEyeY ) ){
-        if ( mouseX > centerOfEyeX ){
-            eyeDirection = "E";
-    }   else {
-            eyeDirection = "W";
-    }}
+        eyeDirection = mouseX > centerOfEyeX ? "E" : "W";
+    }
 
     if (  approx ( mouseY, centerOfEyeY ) && approx ( mouseX, centerOfEyeX )){
         eyeDirection = "C";
@@ -326,7 +320,6 @@ document.addEventListener('mousemove', (e) =>{
     function approx(nbToCompare, nbToApprox){
         return (  nbToApprox-10 < nbToCompare && nbToCompare < nbToApprox + 10)
     }
-
 
     function wichDirection(dir){
         let direction = {
@@ -344,17 +337,6 @@ document.addEventListener('mousemove', (e) =>{
         return direction[dir];
     }
 
-    const direction = {
-        N : "(2px, -5px)",
-        NE : "(4px, -4px)",
-        E : "(4px, 0px)",
-        SE : "(4px, 4px)",
-        S : "(2px, 5px)",
-        SW : "(0px, 4px)",
-        W : "(0px, 0px)",
-        NW : "(0px, -4px)",
-        C : "(2px, 0px)",
-    }
     function setPupilsDirection(dir){
      for (let pupils of eyesPupils){
          pupils.style.setProperty('transform', 'translate'+(dir));
