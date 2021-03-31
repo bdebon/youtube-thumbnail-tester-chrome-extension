@@ -282,12 +282,12 @@ input {
 
 .channel-fileinput-user {
     position: absolute;
-    width: 30px;
-    left: 13px;
+    left: 50%;
     bottom: -2px;
     transition: all 250ms;
     transform-origin: 50% 150%;
     opacity: 1;
+    transform: translateX(-50%);
 }
 
 .file-channel-thumbnail + .py-form-filelabel:hover .channel-fileinput-user {
