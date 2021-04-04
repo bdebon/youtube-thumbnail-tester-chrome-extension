@@ -126,11 +126,6 @@ findCardBtn.addEventListener("click", async () => {
     await launchScript(randomButton.checked)
 })
 
-shuffleBtn.addEventListener("click", async (e) => {
-    e.stopPropagation();
-    await launchScript(true)
-})
-
 async function launchScript(shuffle = false) {
     let [tab] = await chrome.tabs.query({active: true, currentWindow: true})
     // If the user is on another site than YT
