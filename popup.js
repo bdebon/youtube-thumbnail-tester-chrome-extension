@@ -6,6 +6,7 @@ let resetBtn = document.querySelector(".js-reset-btn");
 const titleInput = document.querySelector('.js-title-input')
 const channelThumbnailInput = document.querySelector('.js-channel-thumbnail-input')
 const channelNameInput = document.querySelector('.js-channel-name-input')
+const randomButton = document.querySelector('#random')
 const thumbnailInput = document.querySelector('.js-thumbnail-input')
 const errorMessageSpan = document.querySelector("#extErrorMessage")
 const darkModeBtn = document.querySelector('.js-darkmode-btn')
@@ -112,13 +113,17 @@ function initInputs() {
     removeError();
 }
 
-findCardBtn.addEventListener("click", async () => {
-    await launchScript(false)
+randomButton.addEventListener('change', (e) => {
+    const isChecked = e.target.checked
+    if (isChecked) {
+        e.target.parentNode.parentNode.classList.add('active')
+    }else {
+        e.target.parentNode.parentNode.classList.remove('active')
+    }
 })
 
-shuffleBtn.addEventListener("click", async (e) => {
-    e.stopPropagation();
-    await launchScript(true)
+findCardBtn.addEventListener("click", async () => {
+    await launchScript(randomButton.checked)
 })
 
 async function launchScript(shuffle = false) {
