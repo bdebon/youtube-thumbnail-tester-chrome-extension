@@ -263,6 +263,10 @@ input {
     background-color: var(--grey-light);
 }
 
+.preview-channel-thumbnail {
+    max-width: 56px;
+}
+
 .channel-fileinput-img {
     position: relative;
     z-index: 10;
