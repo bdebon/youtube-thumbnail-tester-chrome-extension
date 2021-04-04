@@ -118,7 +118,12 @@ shuffleBtn.addEventListener("click", async (e) => {
 })
 
 async function launchScript(shuffle = false) {
-    let [tab] = await chrome.tabs.query({active: true, currentWindow: true});
+    let [tab] = await chrome.tabs.query({active: true, currentWindow: true})
+    // If the user is on another site than YT
+    if (tab === undefined || tab.url !== 'https://www.youtube.com/') {
+        chrome.storage.local.set({ errorMessage: "You need to be on the Youtube homepage !" })
+        return
+    }
 
     const title = titleInput.value
     const channelName = channelNameInput.value
@@ -144,17 +149,9 @@ async function launchScript(shuffle = false) {
         function: findCard,
     });
 
-
-    // Display potential errors when the click is done
-
-    // I can't get the return from findCard
-    // I can't execute code directly after findCard either
-    // Soooo this setTimeout of 100ms is a small hack
-    // Otherwise the error doesn't display on the first click
-    setTimeout(
-        function () {
-            checkForError();
-        }, 10);
+    // everything went smooth so we can close the popup to let the user enjoy
+    window.close();
+    chrome.storage.local.remove(['errorMessage']);
 }
 
 
@@ -210,12 +207,6 @@ function findCard(shuffle = false) {
         }
         let target = cards[cardPositionIndex]
 
-        // If the user is on another site than YT
-        if (typeof (target) === "undefined") {
-            chrome.storage.local.set({errorMessage: "You need to be on the Youtube homepage !"});
-            return;
-        }
-
         const thumbnail = target.querySelector('.yt-img-shadow')
         thumbnail.src = result.thumbnailProperties.thumbnail
 
@@ -243,21 +234,6 @@ function findCard(shuffle = false) {
     });
 }
 
-// Checks if an error is stored
-// If so then displays it and clears it
-function checkForError() {
-    chrome.storage.local.get(['errorMessage'], function (result) {
-        if (typeof (result.errorMessage) !== "undefined") {
-            errorMessageSpan.textContent = result.errorMessage;
-            errorMessageSpan.style.display = "block";
-        } else {
-            // everything went smooth so we can close the popup to let the user enjoy
-            window.close();
-        }
-    });
-    chrome.storage.local.remove(['errorMessage']);
-}
-
 // Removes the errors from storage and from the display
 function removeError() {
     errorMessageSpan.textContent = "";
@@ -280,3 +256,13 @@ function refreshApp() {
     thumbnailInput.value = null
 }
 
+// Handle chrome storage change
+chrome.storage.onChanged.addListener(function (changes, namespace) {
+    for (var key in changes) {
+        if (key === 'errorMessage') {
+            const storageChange = changes[key]
+            errorMessageSpan.textContent = storageChange.newValue
+            errorMessageSpan.style.display = "block"
+        }
+    }
+});
