@@ -158,7 +158,7 @@ async function launchScript(shuffle = false) {
     })
 
     // everything went smooth so we can close the popup to let the user enjoy
-    window.close()
+    //window.close()
     chrome.storage.local.remove(['errorMessage'])
 }
 
@@ -330,7 +330,7 @@ document.addEventListener('mousemove', (e) =>{
 })
 
 // Handle chrome storage change
-chrome.storage.onChanged.addEventListener(function (changes) {
+chrome.storage.onChanged.addListener(function (changes) {
     for (var key in changes) {
         if (key === 'errorMessage') {
             const storageChange = changes[key]
