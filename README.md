@@ -10,14 +10,36 @@
 
 Then you should see the extension was installed
 
+## Linter - ESLint
+
+To install ESLint launch 
+
+```
+npm install
+```
+
+To execute and fix all syntaxes error launch
+
+```
+npm run lint
+```
+
+#### Configuration
+
+La configuration est dans le fichier ``.eslintrc.json``
+
+- [Disallow semicolons instead of ASI](https://eslint.org/docs/rules/semi)
+- [Use of single quotes wherever possible](https://eslint.org/docs/rules/quotes)
+- [2-space or 1 tab for indentation](https://eslint.org/docs/rules/indent)
+- [Disallow Unused Variables](https://eslint.org/docs/rules/no-unused-vars)
+
 ## Things to improve
 - [ ] Dark mode
 - [ ] The app needs an icon because for now we use the default google one...
 - [ ] Install a linter on the project so that we all can collaborate without having so many useless changes to review
 - [ ] Creating tests ? (even if @liior tried for one hour without any success)
 - [ ] Animation on the YouTube Homepage to show where the thumbnail is updated. Like a scale up scale down on the thumbnail for example.
-- [ ] Integrating the V2.0 of the design made by BastiUI https://www.figma.com/file/lceF92oVJ4QRAbnfddO5FL/BastiUi-%E2%80%A2-PrevYou?node-id=116%3A56
-
+- [ ] Integrating the V2.0 of the design made by BastiUI
 
 ## Credits
 Made by benjamincode live on Twitch :

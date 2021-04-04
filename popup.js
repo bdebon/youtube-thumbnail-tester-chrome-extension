@@ -83,6 +83,7 @@ const previewVideo = document.querySelector('.preview-video-thumbnail');
 
 initInputs();
 
+// Init value from chrome store
 function initInputs() {
     chrome.storage.local.get("thumbnailProperties", (result) => {
         var storedThumbnail = result.thumbnailProperties;
