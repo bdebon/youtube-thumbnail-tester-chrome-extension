@@ -158,7 +158,7 @@ async function launchScript(shuffle = false) {
     })
 
     // everything went smooth so we can close the popup to let the user enjoy
-    //window.close()
+    window.close()
     chrome.storage.local.remove(['errorMessage'])
 }
 
