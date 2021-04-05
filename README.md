@@ -39,7 +39,7 @@ The config is in the file ``.eslintrc.json``
 - [x] Install a linter on the project so that we all can collaborate without having so many useless changes to review
 - [ ] Animation on the YouTube Homepage to show where the thumbnail is updated. Like a scale up scale down on the thumbnail for example.
 - [ ] Drag and drop thumbnail should work. For now the integration is done and if you hover the dropzone with a file, you'll see the good animation. But once you release the click, it does not work. It's a small thing to fix.
-- [ ] People also would like to be able to use this extension on the subsribe feed on YouTube. And it is really a good feature that needs to be done
+- [x] People also would like to be able to use this extension on the subsribe feed on YouTube. And it is really a good feature that needs to be done
 - [x] Integrating the V2.0 of the design made by BastiUI ([Figma Link](https://www.figma.com/file/lceF92oVJ4QRAbnfddO5FL/BastiUi-%E2%80%A2-PrevYou?node-id=116%3A56))
 - [ ] Creating tests ? (even if @liior after many tried realised that it was maybe not that interesting to do. Follow the discussion [here](https://twitter.com/LiiorC/status/1378610942498508802))
 
