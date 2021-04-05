@@ -128,7 +128,7 @@ findCardBtn.addEventListener('click', async () => {
 async function launchScript(shuffle = false) {
     let [tab] = await chrome.tabs.query({active: true, currentWindow: true})
     // If the user is on another site than YT
-    if (tab === undefined || tab.url !== 'https://www.youtube.com/') {
+    if (tab === undefined || !tab.url.startsWith('https://www.youtube.com/')) {
         chrome.storage.local.set({ errorMessage: 'You need to be on the Youtube homepage !' })
         return
     }
@@ -158,7 +158,7 @@ async function launchScript(shuffle = false) {
     })
 
     // everything went smooth so we can close the popup to let the user enjoy
-    window.close()
+    //window.close()
     chrome.storage.local.remove(['errorMessage'])
 }
 
@@ -200,11 +200,14 @@ resetBtn.addEventListener('click', () => {
 
 function findCard() {
     // Select randomly a card between a range
-
     let cardPositionIndex = 1
 
-    // Target only ytd-rich-item-renderer element and not ytd-rich-item-renderer with id content
-    let cards = document.querySelectorAll('.ytd-rich-item-renderer:not(#content)')
+    const activeScreen = document.querySelector('[role="main"]')
+    // Target only ytd-rich-item-renderer element and not ytd-rich-item-renderer with id content for the main page
+    let cards = activeScreen.querySelectorAll('.ytd-rich-item-renderer:not(#content)')
+    if(cards.length === 0) {
+        cards = activeScreen.getElementsByTagName('ytd-grid-video-renderer')
+    }
 
     chrome.storage.local.get('thumbnailProperties', (result) => {
 
@@ -214,7 +217,6 @@ function findCard() {
             cardPositionIndex = Math.floor(Math.random() * (max - min + 1)) + min
         }
         let target = cards[cardPositionIndex]
-
         const thumbnail = target.querySelector('.yt-img-shadow')
         thumbnail.src = result.thumbnailProperties.thumbnail
 
