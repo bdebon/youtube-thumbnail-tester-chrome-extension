@@ -18,15 +18,14 @@ const eyesPupils = document.querySelectorAll('.js-animated-eyes')
 // =============================================
 // DARK/LIGHT MODE handler
 
-// Once the page loaded, check if the Dark Mode is activated with a function that 
-// return 'on' or null depending of the existence of a 'darkMode' key on LocalStorage
+// Once the page is loaded, check if the Dark Mode is activated with a function that 
+// returns 'on' or null depending on the existence of a 'darkMode' key on LocalStorage
 window.onload = () =>{ 
     if ( isDarkModeOn() == 'on' ){ 
         setTimeout(darkMode,
             300)
     }
 } 
-
 
 darkModeBtn.addEventListener( 'click', () => {
     if ( isDarkModeOn() == null ) {
@@ -38,11 +37,10 @@ darkModeBtn.addEventListener( 'click', () => {
     }
 })
 
-//function that check the existence of the key 'darkMode' on LocalStorage
+// Function that checks the existence of the key 'darkMode' on LocalStorage
 function isDarkModeOn(){
     return localStorage.getItem( 'darkMode' ) ? 'on' : null  
 }
-
 
 function darkMode(){
     darkModeBtn.innerHTML = 
@@ -54,7 +52,6 @@ function darkMode(){
 
     switchProperties( styleToChange )
 }
-
 
 function lightMode(){
     darkModeBtn.innerHTML = 
@@ -88,7 +85,7 @@ function initInputs() {
     chrome.storage.local.get('thumbnailProperties', (result) => {
         var storedThumbnail = result.thumbnailProperties
 
-        // If there's valid data stored
+        // If valid data is stored
         if (typeof (storedThumbnail) !== 'undefined') {
             console.log(storedThumbnail)
             titleInput.value = storedThumbnail.title || null
@@ -157,18 +154,17 @@ async function launchScript(shuffle = false) {
         function: findCard,
     })
 
-    // everything went smooth so we can close the popup to let the user enjoy
+    // Everything went smooth so we can close the popup to let the user enjoy
     window.close()
     chrome.storage.local.remove(['errorMessage'])
 }
-
 
 thumbnailInput.addEventListener('change', () => {
     const file = thumbnailInput.files[0]
     const reader = new FileReader()
 
     reader.addEventListener('load', function () {
-        // convert image file to base64 string
+        // Convert image file to base64 string
         videoThumbnail = reader.result
         previewVideo.src = reader.result
     }, false)
@@ -197,9 +193,8 @@ resetBtn.addEventListener('click', () => {
     refreshApp()
 })
 
-
 function findCard() {
-    // Select randomly a card between a range
+    // Select a random a card in between a range
     let cardPositionIndex = 1
 
     const activeScreen = document.querySelector('[role="main"]')
@@ -244,7 +239,7 @@ function findCard() {
     })
 }
 
-// Removes the errors from storage and from the display
+// Remove the errors from storage and from the display
 function removeError() {
     errorMessageSpan.textContent = ''
     errorMessageSpan.style.display = 'none'
@@ -270,21 +265,20 @@ function refreshApp() {
 // =============================================
 // ANIMATED EYES
 
-//First, we find the eyes position and their center :
+//First, we find the eyes's positions and their center :
 let eyeCoord = headerEye.getBoundingClientRect()
 let centerOfEyeX = Math.round(( ( eyeCoord.right - eyeCoord.left ) / 2 ) + eyeCoord.left)
 let centerOfEyeY = Math.round(( ( eyeCoord.bottom - eyeCoord.top ) / 2 ) + eyeCoord.top)
 
 
-//on mousemove, we locate the mouse position and compare its X & Y coordinates to eyes' center.
-// let=eyeDirection indicate the eyes direction in a "North, South, South East etc..." mode
+// On mousemove, we locate the mouse position and compare its X & Y coordinates to the eyes's center.
+// let=eyeDirection indicates the eyes's direction with cardinal directions
 
 document.addEventListener('mousemove', (e) =>{
     let mouseX = e.clientX
     let mouseY = e.clientY
     let eyeDirection
 
-     
     eyeDirection = mouseY < centerOfEyeY ? 'N' : 'S'
     eyeDirection += mouseX < centerOfEyeX ? 'W' : 'E'
      
@@ -300,7 +294,7 @@ document.addEventListener('mousemove', (e) =>{
         eyeDirection = 'C'
     }
 
-    // due "North", "South" etc ... are calculate on an approximative direction ( eyes' center +/- 10 px )
+    // Caridnal directions are calculated on an approximative direction ( eyes's center +/- 10px )
     function approx(nbToCompare, nbToApprox){
         return (  nbToApprox-10 < nbToCompare && nbToCompare < nbToApprox + 10)
     }

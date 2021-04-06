@@ -5,7 +5,6 @@
 }
 
 :root {
- 
   --grey: #A7A3C2;
   --grey-light: #D5CEEA;
   --grey-lighter: #F8F5FF;
@@ -14,10 +13,10 @@
 
   --btnColor: #6116FF;
   --btnBorder: #24008C;
-  --bg: #FFFFFF;            /*Dark/Light Mode :*/
-  --btnBg: #F8F5FF;         /* these custom properties are the colors that changes*/
-  --formText: #000000;      /* when we switch from one mod to another */
-  --headerColor : #161827;  /* JS is binded to them for easy switch*/
+  --bg: #FFFFFF;            /* Dark/Light Mode : */
+  --btnBg: #F8F5FF;         /* These custom properties are the colors that change */
+  --formText: #000000;      /* when we switch from one mode to another */
+  --headerColor : #161827;  /* we binded some JS to them to facilitate the switch */
 }
 
 body {
@@ -86,15 +85,13 @@ body {
     animation: diceShaking 150ms infinite alternate linear;
 }
 
-
 .py-button:hover .py-dice {
     transform: translate(50%);
 }
 
 .py-dice:hover {
-    transform: translateX(0%)!important;
+    transform: translateX(0%) !important;
 }
-
 
 .py-button-icon {
     margin-right: 12px;
@@ -183,8 +180,7 @@ body {
 input {
     -webkit-appearance: none;
     -moz-appearance: none;
-  }
-
+}
 
 .py-form-group {
     display: block;
@@ -234,12 +230,12 @@ input {
 }
 
 .py-form-file {
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
 }
 
 .py-error {
@@ -445,8 +441,8 @@ input {
     transition: .4s;
 }
   
-input:checked + .slider {background-color: var(--btnColor);}  
-input:focus + .slider {box-shadow: 0 0 1px var(--btnColor);}  
+input:checked + .slider {background-color: var(--btnColor);}
+input:focus + .slider {box-shadow: 0 0 1px var(--btnColor);}
 input:checked + .slider:before {transform: translateX(16px);}
 
 /* //////// */
