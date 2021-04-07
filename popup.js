@@ -294,7 +294,7 @@ document.addEventListener('mousemove', (e) =>{
         eyeDirection = 'C'
     }
 
-    // Caridnal directions are calculated on an approximative direction ( eyes's center +/- 10px )
+    // Cardinal directions are calculated on an approximative direction ( eyes's center +/- 10px )
     function approx(nbToCompare, nbToApprox){
         return (  nbToApprox-10 < nbToCompare && nbToCompare < nbToApprox + 10)
     }
