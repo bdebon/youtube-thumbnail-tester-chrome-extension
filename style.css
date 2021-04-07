@@ -342,7 +342,7 @@ input {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border: 4px solid var(--btnBg);
+    border: 6px solid var(--btnBg);
 }
 
 .file-video-thumbnail:valid + .py-form-filelabel .video-fileinput-img,

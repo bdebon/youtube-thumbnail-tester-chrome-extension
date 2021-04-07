@@ -21,7 +21,7 @@ const eyesPupils = document.querySelectorAll('.js-animated-eyes')
 // Once the page is loaded, check if the Dark Mode is activated with a function that 
 // returns 'on' or null depending on the existence of a 'darkMode' key on LocalStorage
 window.onload = () =>{ 
-    if ( isDarkModeOn() == 'on' ){ 
+    if ( isDarkModeOn() == 'on' ){
         setTimeout(darkMode,
             300)
     }
@@ -39,7 +39,7 @@ darkModeBtn.addEventListener( 'click', () => {
 
 // Function that checks the existence of the key 'darkMode' on LocalStorage
 function isDarkModeOn(){
-    return localStorage.getItem( 'darkMode' ) ? 'on' : null  
+    return localStorage.getItem( 'darkMode' ) ? 'on' : null
 }
 
 function darkMode(){
@@ -179,7 +179,7 @@ channelThumbnailInput.addEventListener('change', () => {
     const reader = new FileReader()
 
     reader.addEventListener('load', function () {
-        // convert image file to base64 string
+        // Convert image file to base64 string
         channelThumbnailBase64 = reader.result
         preview.src = reader.result
     }, false)
@@ -207,8 +207,8 @@ function findCard() {
     chrome.storage.local.get('thumbnailProperties', (result) => {
 
         if(result.thumbnailProperties.shuffle) {
-            let min = 1
-            let max = 12
+            const min = 1
+            const max = 12
             cardPositionIndex = Math.floor(Math.random() * (max - min + 1)) + min
         }
         let target = cards[cardPositionIndex]
@@ -265,7 +265,7 @@ function refreshApp() {
 // =============================================
 // ANIMATED EYES
 
-//First, we find the eyes's positions and their center :
+// First, we find the eyes's positions and their center :
 let eyeCoord = headerEye.getBoundingClientRect()
 let centerOfEyeX = Math.round(( ( eyeCoord.right - eyeCoord.left ) / 2 ) + eyeCoord.left)
 let centerOfEyeY = Math.round(( ( eyeCoord.bottom - eyeCoord.top ) / 2 ) + eyeCoord.top)
@@ -294,7 +294,7 @@ document.addEventListener('mousemove', (e) =>{
         eyeDirection = 'C'
     }
 
-    // Caridnal directions are calculated on an approximative direction ( eyes's center +/- 10px )
+    // Cardinal directions are calculated on an approximative direction ( eyes's center +/- 10px )
     function approx(nbToCompare, nbToApprox){
         return (  nbToApprox-10 < nbToCompare && nbToCompare < nbToApprox + 10)
     }
