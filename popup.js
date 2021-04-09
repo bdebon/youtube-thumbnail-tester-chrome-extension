@@ -199,6 +199,9 @@ thumbnailVideoDropzone.addEventListener('drop', (e) => {
     if (e.dataTransfer.items.length) {
         const file = e.dataTransfer.items[0].getAsFile()
         const reader = new FileReader()
+        const dtFile = new DataTransfer()
+        dtFile.items.add(file)
+        thumbnailInput.files = dtFile.files
 
         reader.addEventListener('load', function () {
             // Convert image file to base64 string
