@@ -6,6 +6,7 @@ const titleInput = document.querySelector('.js-title-input')
 const channelThumbnailInput = document.querySelector('.js-channel-thumbnail-input')
 const channelNameInput = document.querySelector('.js-channel-name-input')
 const randomButton = document.querySelector('#random')
+const thumbnailVideoDropzone = document.querySelector('.py-label-video-thumbnail')
 const thumbnailInput = document.querySelector('.js-thumbnail-input')
 const errorMessageSpan = document.querySelector('#extErrorMessage')
 const darkModeBtn = document.querySelector('.js-darkmode-btn')
@@ -184,6 +185,28 @@ thumbnailInput.addEventListener('change', () => {
     }, false)
 
     if (file) {
+        reader.readAsDataURL(file)
+    }
+})
+
+thumbnailVideoDropzone.addEventListener('dragover', (e) => {
+    e.preventDefault()
+})
+
+thumbnailVideoDropzone.addEventListener('drop', (e) => {
+    e.preventDefault()
+
+    if (e.dataTransfer.items.length) {
+        const file = e.dataTransfer.items[0].getAsFile()
+        const reader = new FileReader()
+
+        reader.addEventListener('load', function () {
+            // Convert image file to base64 string
+            videoThumbnail = reader.result
+            previewVideo.src = reader.result
+            thumbnailInput.classList.add('loaded')
+        }, false)
+
         reader.readAsDataURL(file)
     }
 })
