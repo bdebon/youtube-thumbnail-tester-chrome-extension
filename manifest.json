@@ -1,22 +1,22 @@
 {
-  "name": "YouTube Thumbnail Tester",
-  "description": "Preview your thumbnail and title on YouTube home page !",
+  "name": "PrevYou — YouTube Thumbnail Previewer",
+  "description": "Preview your video thumbnail and title on YouTube home page or subscription feed.",
   "version": "1.0",
   "manifest_version": 3,
   "permissions": ["storage", "activeTab", "scripting"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "/images/get_started16.png",
-      "32": "/images/get_started32.png",
-      "48": "/images/get_started48.png",
-      "128": "/images/get_started128.png"
+      "16": "/images/logo16.png",
+      "32": "/images/logo32.png",
+      "48": "/images/logo48.png",
+      "128": "/images/logo128.png"
     }
   },
   "icons": {
-    "16": "/images/get_started16.png",
-    "32": "/images/get_started32.png",
-    "48": "/images/get_started48.png",
-    "128": "/images/get_started128.png"
+    "16": "/images/logo16.png",
+    "32": "/images/logo32.png",
+    "48": "/images/logo48.png",
+    "128": "/images/logo128.png"
   }
 }
