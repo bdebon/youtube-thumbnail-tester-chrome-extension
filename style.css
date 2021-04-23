@@ -121,6 +121,7 @@ body {
 .py-container {
     position: relative;
     width: 400px;
+    height: 630px; /* had to fix the height because object height auto not working */
     border: none;
     background-color: var(--bg);
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
