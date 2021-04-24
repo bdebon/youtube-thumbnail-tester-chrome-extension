@@ -102,7 +102,6 @@ function initInputs() {
 
         // If valid data is stored
         if (typeof (storedThumbnail) !== 'undefined') {
-            console.log(storedThumbnail)
             titleInput.value = storedThumbnail.title || null
             channelNameInput.value = storedThumbnail.channelName || null
 
@@ -171,6 +170,18 @@ async function launchScript(shuffle = false) {
 
     // Everything went smooth so we can close the popup to let the user enjoy
     window.close()
+    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        chrome.tabs.sendMessage(tabs[0].id, {
+                type: "close_popup"
+            },
+            (response) => {
+                if (response) {
+                    //console.log(response);
+                }
+            });
+        window.close();
+    });
+
     chrome.storage.local.remove(['errorMessage'])
 }
 

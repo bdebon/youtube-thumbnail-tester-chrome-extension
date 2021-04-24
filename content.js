@@ -6,6 +6,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.type == "popup") {
         //console.log(request);
         showPopup();
+    } else if (request.type === 'close_popup') {
+        hidePopup();
     }
     return true;
 });
