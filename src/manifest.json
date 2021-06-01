@@ -5,7 +5,7 @@
   "manifest_version": 3,
   "permissions": ["storage", "activeTab", "scripting"],
   "action": {
-    "default_popup": "popup-wrapper.html",
+    "default_popup": "html/popup-wrapper.html",
     "default_icon": {
       "16": "/images/logo16.png",
       "32": "/images/logo32.png",
@@ -16,13 +16,13 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "css": ["content.css"],
-      "js": ["content.js"]
+      "css": ["css/content.css", "css/animation.css"],
+      "js": ["js/content.js"]
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["popup.html"],
+      "resources": ["html/popup.html"],
       "matches": ["<all_urls>"]
     }
   ],

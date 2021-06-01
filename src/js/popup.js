@@ -19,10 +19,10 @@ const eyesPupils = document.querySelectorAll('.js-animated-eyes')
 // =============================================
 // DARK/LIGHT MODE handler
 
-// Once the page is loaded, check if the Dark Mode is activated with a function that 
+// Once the page is loaded, check if the Dark Mode is activated with a function that
 // returns 'on' or null depending on the existence of a 'darkMode' key on LocalStorage
 window.onload = () => {
-    if (isDarkModeOn() == 'on') {
+    if (isDarkModeOn() === 'on') {
         setTimeout(darkMode,
             300)
     }
@@ -98,7 +98,7 @@ initInputs()
 // Init value from chrome store
 function initInputs() {
     chrome.storage.local.get('thumbnailProperties', (result) => {
-        var storedThumbnail = result.thumbnailProperties
+        const storedThumbnail = result.thumbnailProperties
 
         // If valid data is stored
         if (typeof (storedThumbnail) !== 'undefined') {
@@ -172,15 +172,15 @@ async function launchScript(shuffle = false) {
     window.close()
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
         chrome.tabs.sendMessage(tabs[0].id, {
-                type: "close_popup"
-            },
-            (response) => {
-                if (response) {
-                    //console.log(response);
-                }
-            });
-        window.close();
-    });
+            type: 'close_popup'
+        },
+        (response) => {
+            if (response) {
+                //console.log(response);
+            }
+        })
+        window.close()
+    })
 
     chrome.storage.local.remove(['errorMessage'])
 }
@@ -263,6 +263,14 @@ function findCard() {
             cardPositionIndex = Math.floor(Math.random() * (max - min + 1)) + min
         }
         let target = cards[cardPositionIndex]
+
+        // animate the card
+        const card = target.querySelector('ytd-thumbnail')
+        card.classList.add('added-thumbnail')
+        card.addEventListener( 'animationend', () => {
+            card.classList.remove('added-thumbnail')
+        })
+
         const thumbnail = target.querySelector('.yt-img-shadow')
         thumbnail.src = result.thumbnailProperties.thumbnail
 
