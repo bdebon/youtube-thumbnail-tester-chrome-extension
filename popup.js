@@ -172,15 +172,15 @@ async function launchScript(shuffle = false) {
     window.close()
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
         chrome.tabs.sendMessage(tabs[0].id, {
-                type: "close_popup"
-            },
-            (response) => {
-                if (response) {
-                    //console.log(response);
-                }
-            });
-        window.close();
-    });
+            type: 'close_popup'
+        },
+        (response) => {
+            if (response) {
+                //console.log(response);
+            }
+        })
+        window.close()
+    })
 
     chrome.storage.local.remove(['errorMessage'])
 }
@@ -250,7 +250,7 @@ function findCard() {
 
     const activeScreen = document.querySelector('[role="main"]')
     // Target only ytd-rich-item-renderer element and not ytd-rich-item-renderer with id content for the main page
-    let cards = activeScreen.querySelectorAll('.ytd-rich-item-renderer:not(#content)')
+    let cards = Array.from(activeScreen.querySelectorAll('.ytd-rich-item-renderer:not(#content):not(ytd-display-ad-renderer)')).filter(card => !card.querySelector('#avatar-link').hidden)
     if (cards.length === 0) {
         cards = activeScreen.getElementsByTagName('ytd-grid-video-renderer')
     }
