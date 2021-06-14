@@ -267,7 +267,7 @@ function findCard() {
         // animate the card
         const card = target.querySelector('ytd-thumbnail')
         card.classList.add('added-thumbnail')
-        card.addEventListener( 'animationend', () => {
+        card.addEventListener('animationend', () => {
             card.classList.remove('added-thumbnail')
         })
 
