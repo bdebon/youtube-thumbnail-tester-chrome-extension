@@ -3,11 +3,14 @@ var overlay = null,
 
 // Event send by the extension popup
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.type == "popup") {
-        //console.log(request);
-        showPopup();
-    } else if (request.type === 'close_popup') {
-        hidePopup();
+    switch(request.type) {
+        case "popup":
+            showPopup();
+        break;
+
+        case "close_popup":
+            hidePopup();
+        break;
     }
     return true;
 });
