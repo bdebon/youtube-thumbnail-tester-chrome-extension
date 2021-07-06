@@ -1,6 +1,15 @@
 var overlay = null,
     frame = null;
 
+window.__PREVYOU_LOADED = true
+
+// Event send by the inner `<object>` script
+window.addEventListener('message', e => {
+    if (e.data && e.data.type === 'find_card') {
+        findCard()
+    }
+})
+
 // Event send by the extension popup
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.type == "popup") {
@@ -45,3 +54,53 @@ function hidePopup() {
     overlay = null;
     frame = null;
 }
+
+function findCard() {
+    // Select a random a card in between a range
+    let cardPositionIndex = 1
+
+    const activeScreen = document.querySelector('[role="main"]')
+    // Target only ytd-rich-item-renderer element and not ytd-rich-item-renderer with id content for the main page
+    let cards = activeScreen.querySelectorAll('.ytd-rich-item-renderer:not(#content)')
+    if (cards.length === 0) {
+        cards = activeScreen.getElementsByTagName('ytd-grid-video-renderer')
+    }
+
+    chrome.storage.local.get('thumbnailProperties', (result) => {
+
+        if (result.thumbnailProperties.shuffle) {
+            const min = 1
+            const max = 12
+            cardPositionIndex = Math.floor(Math.random() * (max - min + 1)) + min
+        }
+        let target = cards[cardPositionIndex]
+        const thumbnail = target.querySelector('.yt-img-shadow')
+        thumbnail.src = result.thumbnailProperties.thumbnail
+
+        const title = target.querySelector('#video-title')
+        const channelName = target.querySelector('.ytd-channel-name a')
+
+        title.textContent = result.thumbnailProperties.title
+        channelName.textContent = result.thumbnailProperties.channelName
+
+        // Channel's thumbnail management
+        let channelThumbnailFromExtension = result.thumbnailProperties.channelThumbnail
+        let channelThumbnailFromYoutube = document.querySelector('#avatar-btn .yt-img-shadow')
+
+        // By default, we get the image from the extension
+        let channelThumbnailValue = channelThumbnailFromExtension
+
+        // But if there's no image then we try to get the real YT thumbnail
+        // => Thumbnail from YT is null if not logged in so we check for it
+        if (channelThumbnailValue == null && channelThumbnailFromYoutube != null) {
+            channelThumbnailValue = channelThumbnailFromYoutube.src
+        }
+
+        // Finally, set the channel's thumbnail in the preview
+        target.querySelector('#avatar-link img').src = channelThumbnailValue
+
+        hidePopup()
+    })
+}
+
+showPopup()
