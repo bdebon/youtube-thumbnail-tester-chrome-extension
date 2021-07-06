@@ -57,13 +57,16 @@ function hidePopup() {
 
 function findCard() {
     // Select a random a card in between a range
-    let cardPositionIndex = 1
+    let cardPositionIndex = 0
 
     const activeScreen = document.querySelector('[role="main"]')
     // Target only ytd-rich-item-renderer element and not ytd-rich-item-renderer with id content for the main page
-    let cards = activeScreen.querySelectorAll('.ytd-rich-item-renderer:not(#content)')
+    let cards = activeScreen.querySelectorAll('.ytd-rich-item-renderer:not(#content):not(ytd-display-ad-renderer)')
     if (cards.length === 0) {
         cards = activeScreen.getElementsByTagName('ytd-grid-video-renderer')
+    }
+    if (cards.length === 0) {
+        cards = activeScreen.getElementsByTagName('ytd-compact-video-renderer')
     }
 
     chrome.storage.local.get('thumbnailProperties', (result) => {
@@ -78,7 +81,10 @@ function findCard() {
         thumbnail.src = result.thumbnailProperties.thumbnail
 
         const title = target.querySelector('#video-title')
-        const channelName = target.querySelector('.ytd-channel-name a')
+        let channelName = target.querySelector('.ytd-channel-name a')
+        if (!channelName) {
+            channelName = target.querySelector('.ytd-channel-name')
+        }
 
         title.textContent = result.thumbnailProperties.title
         channelName.textContent = result.thumbnailProperties.channelName
@@ -97,7 +103,10 @@ function findCard() {
         }
 
         // Finally, set the channel's thumbnail in the preview
-        target.querySelector('#avatar-link img').src = channelThumbnailValue
+        let avatar = target.querySelector('#avatar-link img')
+        if (avatar) {
+            avatar.src = channelThumbnailValue
+        }
 
         hidePopup()
     })
