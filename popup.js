@@ -8,7 +8,6 @@ const channelNameInput = document.querySelector('.js-channel-name-input')
 const randomButton = document.querySelector('#random')
 const thumbnailVideoDropzone = document.querySelector('.py-label-video-thumbnail')
 const thumbnailInput = document.querySelector('.js-thumbnail-input')
-const errorMessageSpan = document.querySelector('#extErrorMessage')
 const darkModeBtn = document.querySelector('.js-darkmode-btn')
 const root = document.documentElement // to easily access and modify CSS custom properties for Dark/Light Mode
 const headerEye = document.querySelector('.js-header-eyes')
@@ -118,9 +117,6 @@ function initInputs() {
             }
         }
     })
-
-    // At the beginning : clear the possible error messages
-    removeError()
 }
 
 randomButton.addEventListener('change', (e) => {
@@ -137,13 +133,6 @@ findCardBtn.addEventListener('click', async () => {
 })
 
 async function launchScript(shuffle = false) {
-    let [tab] = await chrome.tabs.query({active: true, currentWindow: true})
-    // If the user is on another site than YT
-    if (tab === undefined || !tab.url.startsWith('https://www.youtube.com/')) {
-        chrome.storage.local.set({errorMessage: 'You need to be on the Youtube homepage !'})
-        return
-    }
-
     const title = titleInput.value
     const channelName = channelNameInput.value
 
@@ -163,26 +152,10 @@ async function launchScript(shuffle = false) {
         console.error('Error with the Youtube thumbnail extension : ' + e)
     }
 
-    chrome.scripting.executeScript({
-        target: {tabId: tab.id},
-        function: findCard,
-    })
+    window.parent.postMessage({ type: 'find_card' }, '*')
 
     // Everything went smooth so we can close the popup to let the user enjoy
     window.close()
-    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-        chrome.tabs.sendMessage(tabs[0].id, {
-                type: "close_popup"
-            },
-            (response) => {
-                if (response) {
-                    //console.log(response);
-                }
-            });
-        window.close();
-    });
-
-    chrome.storage.local.remove(['errorMessage'])
 }
 
 thumbnailInput.addEventListener('change', () => {
@@ -243,59 +216,6 @@ channelThumbnailInput.addEventListener('change', () => {
 resetBtn.addEventListener('click', () => {
     refreshApp()
 })
-
-function findCard() {
-    // Select a random a card in between a range
-    let cardPositionIndex = 1
-
-    const activeScreen = document.querySelector('[role="main"]')
-    // Target only ytd-rich-item-renderer element and not ytd-rich-item-renderer with id content for the main page
-    let cards = activeScreen.querySelectorAll('.ytd-rich-item-renderer:not(#content)')
-    if (cards.length === 0) {
-        cards = activeScreen.getElementsByTagName('ytd-grid-video-renderer')
-    }
-
-    chrome.storage.local.get('thumbnailProperties', (result) => {
-
-        if (result.thumbnailProperties.shuffle) {
-            const min = 1
-            const max = 12
-            cardPositionIndex = Math.floor(Math.random() * (max - min + 1)) + min
-        }
-        let target = cards[cardPositionIndex]
-        const thumbnail = target.querySelector('.yt-img-shadow')
-        thumbnail.src = result.thumbnailProperties.thumbnail
-
-        const title = target.querySelector('#video-title')
-        const channelName = target.querySelector('.ytd-channel-name a')
-
-        title.textContent = result.thumbnailProperties.title
-        channelName.textContent = result.thumbnailProperties.channelName
-
-        // Channel's thumbnail management
-        let channelThumbnailFromExtension = result.thumbnailProperties.channelThumbnail
-        let channelThumbnailFromYoutube = document.querySelector('#avatar-btn .yt-img-shadow')
-
-        // By default, we get the image from the extension
-        let channelThumbnailValue = channelThumbnailFromExtension
-
-        // But if there's no image then we try to get the real YT thumbnail
-        // => Thumbnail from YT is null if not logged in so we check for it
-        if (channelThumbnailValue == null && channelThumbnailFromYoutube != null) {
-            channelThumbnailValue = channelThumbnailFromYoutube.src
-        }
-
-        // Finally, set the channel's thumbnail in the preview
-        target.querySelector('#avatar-link img').src = channelThumbnailValue
-    })
-}
-
-// Remove the errors from storage and from the display
-function removeError() {
-    errorMessageSpan.textContent = ''
-    errorMessageSpan.style.display = 'none'
-    chrome.storage.local.remove(['errorMessage'])
-}
 
 function refreshApp() {
     chrome.storage.local.get('thumbnailProperties', (result) => {
@@ -374,15 +294,4 @@ document.addEventListener('mousemove', (e) => {
     }
 
     setPupilsDirection(wichDirection(eyeDirection))
-})
-
-// Handle chrome storage change
-chrome.storage.onChanged.addListener(function (changes) {
-    for (var key in changes) {
-        if (key === 'errorMessage') {
-            const storageChange = changes[key]
-            errorMessageSpan.textContent = storageChange.newValue
-            errorMessageSpan.style.display = 'block'
-        }
-    }
 })
