@@ -1,5 +1,5 @@
 var overlay = null,
-    frame = null;
+    frame = null
 
 window.__PREVYOU_LOADED = true
 
@@ -11,48 +11,48 @@ window.addEventListener('message', e => {
 })
 
 // Event send by the extension popup
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.type == "popup") {
+chrome.runtime.onMessage.addListener(request => {
+    if (request.type == 'popup') {
         //console.log(request);
-        showPopup();
+        showPopup()
     } else if (request.type === 'close_popup') {
-        hidePopup();
+        hidePopup()
     }
-    return true;
-});
+    return true
+})
 
 function showPopup() {
-    if (document.querySelector(".py-popup-overlay")) {
-        hidePopup();
-        return false;
+    if (document.querySelector('.py-popup-overlay')) {
+        hidePopup()
+        return false
     }
 
-    overlay = document.createElement('div');
-    frame = document.createElement('object');
+    overlay = document.createElement('div')
+    frame = document.createElement('object')
 
-    overlay.className = "py-popup-overlay";
-    frame.className = "py-popup-container";
-    frame.setAttribute("scrolling", "no");
-    frame.setAttribute("frameborder", "0");
+    overlay.className = 'py-popup-overlay'
+    frame.className = 'py-popup-container'
+    frame.setAttribute('scrolling', 'no')
+    frame.setAttribute('frameborder', '0')
 
     // file need to be added in manifest web_accessible_resources
-    frame.data = chrome.runtime.getURL("popup.html");
-    overlay.appendChild(frame);
-    document.body.appendChild(overlay);
+    frame.data = chrome.runtime.getURL('popup.html')
+    overlay.appendChild(frame)
+    document.body.appendChild(overlay)
 
-    overlay.addEventListener("click", hidePopup);
+    overlay.addEventListener('click', hidePopup)
 }
 
 function hidePopup() {
     // Remove EventListener
-    overlay.removeEventListener("click", hidePopup);
+    overlay.removeEventListener('click', hidePopup)
 
     // Remove the elements:
-    document.querySelector(".py-popup-overlay").remove();
+    document.querySelector('.py-popup-overlay').remove()
 
     // Clean up references:
-    overlay = null;
-    frame = null;
+    overlay = null
+    frame = null
 }
 
 function findCard() {

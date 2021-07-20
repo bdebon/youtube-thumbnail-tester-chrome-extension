@@ -20,6 +20,6 @@ chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
 
         }
 
-        window.close();
-    });
-});
+        window.close()
+    })
+})
