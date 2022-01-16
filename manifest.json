@@ -3,7 +3,7 @@
   "description": "Preview your video thumbnail and title on YouTube home page or subscription feed.",
   "version": "1.2",
   "manifest_version": 2,
-  "permissions": ["storage", "activeTab", "tabs"],
+  "permissions": ["storage", "activeTab"],
   "browser_action": {
     "default_popup": "popup-wrapper.html",
     "default_icon": {
