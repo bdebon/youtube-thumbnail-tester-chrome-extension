@@ -61,7 +61,7 @@ function findCard() {
 
     const activeScreen = document.querySelector('[role="main"]')
     // Target only ytd-rich-item-renderer element and not ytd-rich-item-renderer with id content for the main page
-    let cards = activeScreen.querySelectorAll('.ytd-rich-item-renderer:not(#content):not(ytd-display-ad-renderer)')
+    let cards = activeScreen.querySelectorAll('.ytd-rich-grid-media:not(#content):not(ytd-display-ad-renderer)')
     if (cards.length === 0) {
         cards = activeScreen.getElementsByTagName('ytd-grid-video-renderer')
     }
