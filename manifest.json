@@ -1,7 +1,7 @@
 {
   "name": "PrevYou — YouTube Thumbnail Previewer",
   "description": "Preview your video thumbnail and title on YouTube home page or subscription feed.",
-  "version": "1.3",
+  "version": "1.4",
   "manifest_version": 2,
   "permissions": ["storage", "activeTab"],
   "browser_action": {
