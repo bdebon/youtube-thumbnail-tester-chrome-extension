@@ -2,9 +2,9 @@
   "name": "PrevYou — YouTube Thumbnail Previewer",
   "description": "Preview your video thumbnail and title on YouTube home page or subscription feed.",
   "version": "1.4",
-  "manifest_version": 2,
-  "permissions": ["storage", "activeTab"],
-  "browser_action": {
+  "manifest_version": 3,
+  "permissions": ["storage", "activeTab", "scripting"],
+  "action": {
     "default_popup": "popup-wrapper.html",
     "default_icon": {
       "16": "/images/logo16.png",
@@ -13,9 +13,10 @@
       "128": "/images/logo128.png"
     }
   },
-  "web_accessible_resources": [
-    "popup.html"
-  ],
+  "web_accessible_resources": [{
+    "resources": ["popup.html"],
+    "matches": ["https://www.youtube.com/*"]
+  }],
   "icons": {
     "16": "/images/logo16.png",
     "32": "/images/logo32.png",
