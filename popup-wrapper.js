@@ -5,19 +5,21 @@ chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
         return
     }
 
-    chrome.tabs.executeScript(tabs[0].id, {
+    chrome.scripting.executeScript({
+        target: {tabId: tabs[0].id},
         // showPopup acutally toggles popup here
-        code: 'window.__PREVYOU_LOADED ? (showPopup(), true) : false'
-    }, res => {
-        if (!res[0]) {
-            chrome.tabs.executeScript(tabs[0].id, {
-                file: '/content.js'
-            })
+        func: () => window.__PREVYOU_LOADED ? (showPopup(), true) : false,
+    }, results => {
+        if (!results[0].result) {
+            chrome.scripting.executeScript({
+                target: {tabId: tabs[0].id},
+                files: ['/content.js']
+            });
 
-            chrome.tabs.insertCSS(tabs[0].id, {
-                file: '/content.css'
+            chrome.scripting.insertCSS({
+                target: {tabId: tabs[0].id},
+                files: ['/content.css']
             })
-
         }
 
         window.close();
