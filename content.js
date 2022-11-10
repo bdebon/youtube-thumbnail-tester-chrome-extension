@@ -1,5 +1,5 @@
 var overlay = null,
-    frame = null;
+    frame = null
 
 window.__PREVYOU_LOADED = true
 
@@ -11,48 +11,48 @@ window.addEventListener('message', e => {
 })
 
 // Event send by the extension popup
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.type == "popup") {
+chrome.runtime.onMessage.addListener((request) => {
+    if (request.type == 'popup') {
         //console.log(request);
-        showPopup();
+        showPopup()
     } else if (request.type === 'close_popup') {
-        hidePopup();
+        hidePopup()
     }
-    return true;
-});
+    return true
+})
 
 function showPopup() {
-    if (document.querySelector(".py-popup-overlay")) {
-        hidePopup();
-        return false;
+    if (document.querySelector('.py-popup-overlay')) {
+        hidePopup()
+        return false
     }
 
-    overlay = document.createElement('div');
-    frame = document.createElement('object');
+    overlay = document.createElement('div')
+    frame = document.createElement('object')
 
-    overlay.className = "py-popup-overlay";
-    frame.className = "py-popup-container";
-    frame.setAttribute("scrolling", "no");
-    frame.setAttribute("frameborder", "0");
+    overlay.className = 'py-popup-overlay'
+    frame.className = 'py-popup-container'
+    frame.setAttribute('scrolling', 'no')
+    frame.setAttribute('frameborder', '0')
 
     // file need to be added in manifest web_accessible_resources
-    frame.data = chrome.runtime.getURL("popup.html");
-    overlay.appendChild(frame);
-    document.body.appendChild(overlay);
+    frame.data = chrome.runtime.getURL('popup.html')
+    overlay.appendChild(frame)
+    document.body.appendChild(overlay)
 
-    overlay.addEventListener("click", hidePopup);
+    overlay.addEventListener('click', hidePopup)
 }
 
 function hidePopup() {
     // Remove EventListener
-    overlay.removeEventListener("click", hidePopup);
+    overlay.removeEventListener('click', hidePopup)
 
     // Remove the elements:
-    document.querySelector(".py-popup-overlay").remove();
+    document.querySelector('.py-popup-overlay').remove()
 
     // Clean up references:
-    overlay = null;
-    frame = null;
+    overlay = null
+    frame = null
 }
 
 function findCard() {
@@ -61,7 +61,7 @@ function findCard() {
 
     const activeScreen = document.querySelector('[role="main"]')
     // Target only ytd-rich-item-renderer element and not ytd-rich-item-renderer with id content for the main page
-    let cards = activeScreen.querySelectorAll('.ytd-rich-grid-media:not(#content):not(ytd-display-ad-renderer)')
+    let cards = activeScreen.querySelectorAll('ytd-rich-grid-media, ytd-rich-grid-slim-media')
     if (cards.length === 0) {
         cards = activeScreen.getElementsByTagName('ytd-grid-video-renderer')
     }
@@ -108,8 +108,49 @@ function findCard() {
             avatar.src = channelThumbnailValue
         }
 
+        highlightTarget(target)
+
         hidePopup()
     })
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+// Highlight and scroll to the target
+async function highlightTarget(target) {
+    window.scrollTo(0, 0)
+    const thumbnailWrapper = target.querySelector('ytd-thumbnail')
+    
+    const overlay = document.createElement('div')
+    thumbnailWrapper.appendChild(overlay)
+    overlay.style.position = 'absolute'
+    overlay.style.top = '-2px'
+    overlay.style.left = '-2px'
+    overlay.style.width = '100%'
+    overlay.style.height = '100%'
+    overlay.style.transition = 'all 1s linear'
+    overlay.style.borderRadius = '20px'
+    overlay.style.border = '3px solid #6116ff'
+    overlay.style.opacity = '0'
+
+    // scroll to the target
+    const masterHeader = document.querySelector('#masthead-container')
+    const filterBar = document.querySelector('#chips-wrapper')
+    const headerHeight = masterHeader.offsetHeight + filterBar.offsetHeight
+    const bbTarget = target.getBoundingClientRect()
+
+    window.scrollTo(0, bbTarget.y - headerHeight - 4)
+
+    await sleep(100)
+    overlay.style.opacity = '1'
+
+    await sleep(1000)
+    overlay.style.opacity = '0'
+
+    await sleep(1000)
+    thumbnailWrapper.removeChild(overlay)
 }
 
 showPopup()
