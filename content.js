@@ -77,7 +77,7 @@ function findCard() {
             cardPositionIndex = Math.floor(Math.random() * (max - min + 1)) + min
         }
         let target = cards[cardPositionIndex]
-        const thumbnail = target.querySelector('.yt-img-shadow')
+        const thumbnail = target.querySelector('.ytd-thumbnail > img')
         thumbnail.src = result.thumbnailProperties.thumbnail
 
         const title = target.querySelector('#video-title')
@@ -103,7 +103,7 @@ function findCard() {
         }
 
         // Finally, set the channel's thumbnail in the preview
-        let avatar = target.querySelector('#avatar-link img')
+        let avatar = target.querySelector('#avatar-link .yt-img-shadow')
         if (avatar) {
             avatar.src = channelThumbnailValue
         }
