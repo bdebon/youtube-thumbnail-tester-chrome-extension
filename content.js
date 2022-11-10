@@ -123,6 +123,7 @@ async function highlightTarget(target) {
     window.scrollTo(0, 0)
     const thumbnailWrapper = target.querySelector('ytd-thumbnail')
     
+    // Create the border overlay 
     const overlay = document.createElement('div')
     thumbnailWrapper.appendChild(overlay)
     overlay.style.position = 'absolute'
@@ -136,13 +137,17 @@ async function highlightTarget(target) {
     overlay.style.opacity = '0'
 
     // scroll to the target
+    let headerHeight = 0
+    const bbTarget = target.getBoundingClientRect()
     const masterHeader = document.querySelector('#masthead-container')
     const filterBar = document.querySelector('#chips-wrapper')
-    const headerHeight = masterHeader.offsetHeight + filterBar.offsetHeight
-    const bbTarget = target.getBoundingClientRect()
-
+    
+    if (masterHeader) headerHeight += masterHeader.offsetHeight
+    if (filterBar) headerHeight += filterBar.offsetHeight
+    
     window.scrollTo(0, bbTarget.y - headerHeight - 4)
 
+    // Start a basic toggle opacity animation
     await sleep(100)
     overlay.style.opacity = '1'
 
