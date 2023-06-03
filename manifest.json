@@ -22,5 +22,10 @@
     "32": "/images/logo32.png",
     "48": "/images/logo48.png",
     "128": "/images/logo128.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{b98170d1-1cdd-45b2-bd5d-a7ee387d964a}"
+    }
   }
 }
