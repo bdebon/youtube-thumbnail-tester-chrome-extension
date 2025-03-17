@@ -137,7 +137,7 @@ async function launchScript(shuffle = false) {
     const channelName = channelNameInput.value
 
     try {
-        console.log(shuffle)
+        //console.log(shuffle)
         chrome.storage.local.set({
             thumbnailProperties: {
                 title: title,

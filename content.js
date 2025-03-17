@@ -104,8 +104,11 @@ function findCard() {
 
         // Finally, set the channel's thumbnail in the preview
         let avatar = target.querySelector('#avatar-link .yt-img-shadow')
+        // YouTube use two avatar nowadays, and because I don't know which one it will use since both are present in the DOM, I'll change both.
+        let avatarV2 = target.querySelector('#decorated-avatar .yt-core-image')
         if (avatar) {
             avatar.src = channelThumbnailValue
+            avatarV2.src = channelThumbnailValue
         }
 
         hidePopup()
