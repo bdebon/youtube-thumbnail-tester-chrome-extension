@@ -61,7 +61,10 @@ function findCard() {
 
     const activeScreen = document.querySelector('[role="main"]')
     // Target only ytd-rich-item-renderer element and not ytd-rich-item-renderer with id content for the main page
-    let cards = activeScreen.querySelectorAll('.ytd-rich-grid-media:not(#content):not(ytd-display-ad-renderer)')
+    let cards = activeScreen.querySelectorAll('ytd-rich-item-renderer:not(#content):not(ytd-display-ad-renderer)')
+    if (cards.length === 0) {
+        cards = activeScreen.querySelectorAll('ytd-rich-grid-media:not(#content):not(ytd-display-ad-renderer)')
+    }
     if (cards.length === 0) {
         cards = activeScreen.getElementsByTagName('ytd-grid-video-renderer')
     }
@@ -70,28 +73,66 @@ function findCard() {
     }
 
     chrome.storage.local.get('thumbnailProperties', (result) => {
+        if (!result.thumbnailProperties) {
+            console.error('No thumbnail properties found in storage')
+            hidePopup()
+            return
+        }
 
         if (result.thumbnailProperties.shuffle) {
             const min = 1
-            const max = 12
+            const max = Math.min(12, cards.length - 1)
             cardPositionIndex = Math.floor(Math.random() * (max - min + 1)) + min
         }
+        
         let target = cards[cardPositionIndex]
-        const thumbnail = target.querySelector('.ytd-thumbnail > img')
-        thumbnail.src = result.thumbnailProperties.thumbnail
-
-        const title = target.querySelector('#video-title')
-        let channelName = target.querySelector('.ytd-channel-name a')
-        if (!channelName) {
-            channelName = target.querySelector('.ytd-channel-name')
+        if (!target) {
+            console.error('No target card found at index', cardPositionIndex)
+            hidePopup()
+            return
         }
 
-        title.textContent = result.thumbnailProperties.title
-        channelName.textContent = result.thumbnailProperties.channelName
+        // Try multiple selectors for thumbnail - nouvelle structure YouTube
+        let thumbnail = target.querySelector('.yt-thumbnail-view-model__image img.yt-core-image')
+        if (!thumbnail) {
+            thumbnail = target.querySelector('yt-thumbnail-view-model img')
+        }
+        if (!thumbnail) {
+            thumbnail = target.querySelector('a[class*="content-image"] img')
+        }
+        if (!thumbnail) {
+            thumbnail = target.querySelector('#thumbnail img')
+        }
+        
+        if (thumbnail) {
+            thumbnail.src = result.thumbnailProperties.thumbnail
+        }
+
+        // Sélecteur pour le titre - nouvelle structure
+        const title = target.querySelector('.yt-lockup-metadata-view-model-wiz__title')
+        if (title) {
+            title.textContent = result.thumbnailProperties.title
+        }
+
+        // Sélecteur pour le nom de la chaîne - nouvelle structure
+        let channelName = target.querySelector('.yt-content-metadata-view-model-wiz__metadata-text a')
+        if (!channelName) {
+            channelName = target.querySelector('.yt-core-attributed-string__link')
+        }
+        
+        if (channelName) {
+            // Garder seulement le texte du nom, pas les icônes
+            const textNode = channelName.childNodes[0]
+            if (textNode && textNode.nodeType === Node.TEXT_NODE) {
+                textNode.textContent = result.thumbnailProperties.channelName
+            } else {
+                channelName.textContent = result.thumbnailProperties.channelName
+            }
+        }
 
         // Channel's thumbnail management
         let channelThumbnailFromExtension = result.thumbnailProperties.channelThumbnail
-        let channelThumbnailFromYoutube = document.querySelector('#avatar-btn .yt-img-shadow')
+        let channelThumbnailFromYoutube = document.querySelector('#avatar-btn img, #avatar img')
 
         // By default, we get the image from the extension
         let channelThumbnailValue = channelThumbnailFromExtension
@@ -102,13 +143,17 @@ function findCard() {
             channelThumbnailValue = channelThumbnailFromYoutube.src
         }
 
-        // Finally, set the channel's thumbnail in the preview
-        let avatar = target.querySelector('#avatar-link .yt-img-shadow')
-        // YouTube use two avatar nowadays, and because I don't know which one it will use since both are present in the DOM, I'll change both.
-        let avatarV2 = target.querySelector('#decorated-avatar .yt-core-image')
-        if (avatar) {
+        // Finally, set the channel's thumbnail in the preview - nouvelle structure
+        let avatar = target.querySelector('.yt-spec-avatar-shape__image')
+        if (!avatar) {
+            avatar = target.querySelector('yt-avatar-shape img')
+        }
+        if (!avatar) {
+            avatar = target.querySelector('.yt-decorated-avatar-view-model-wiz img')
+        }
+        
+        if (avatar && channelThumbnailValue) {
             avatar.src = channelThumbnailValue
-            avatarV2.src = channelThumbnailValue
         }
 
         hidePopup()
