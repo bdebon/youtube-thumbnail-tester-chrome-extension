@@ -6,7 +6,13 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint popup.js --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "package": "git archive -o prevyou.zip HEAD"
+    "package": "git archive -o prevyou.zip HEAD",
+    "bump:patch": "node scripts/bump-version.js patch",
+    "bump:minor": "node scripts/bump-version.js minor",
+    "bump:major": "node scripts/bump-version.js major",
+    "sync-version": "node scripts/sync-version.js",
+    "build": "npm run sync-version && zip -r prevyou.zip manifest.json *.js *.html *.css images/",
+    "release": "npm run bump:patch && npm run build"
   },
   "repository": {
     "type": "git",
@@ -19,6 +25,7 @@
   },
   "homepage": "https://github.com/bdebon/youtube-thumbnail-tester-chrome-extension#readme",
   "devDependencies": {
+    "dotenv": "^17.2.1",
     "eslint": "^7.23.0"
   }
 }

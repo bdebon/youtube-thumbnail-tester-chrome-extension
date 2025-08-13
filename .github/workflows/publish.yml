@@ -1,0 +1,120 @@
+name: Publish to Chrome Web Store
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - '.github/**'
+      - '!.github/workflows/publish.yml'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Get current version
+        id: current_version
+        run: |
+          echo "version=$(node -p "require('./manifest.json').version")" >> $GITHUB_OUTPUT
+      
+      - name: Bump version
+        id: bump_version
+        run: |
+          # Parse current version
+          IFS='.' read -r major minor <<< "${{ steps.current_version.outputs.version }}"
+          
+          # Increment minor version
+          new_minor=$((minor + 1))
+          new_version="${major}.${new_minor}"
+          
+          echo "new_version=${new_version}" >> $GITHUB_OUTPUT
+          echo "Bumping version from ${{ steps.current_version.outputs.version }} to ${new_version}"
+      
+      - name: Update manifest.json version
+        run: |
+          jq '.version = "${{ steps.bump_version.outputs.new_version }}"' manifest.json > manifest.tmp.json
+          mv manifest.tmp.json manifest.json
+      
+      - name: Update package.json version
+        run: |
+          npm version ${{ steps.bump_version.outputs.new_version }}.0 --no-git-tag-version
+      
+      - name: Create distribution package
+        run: |
+          # Create a clean directory for the extension
+          mkdir -p dist
+          
+          # Copy all necessary files
+          cp -r images dist/
+          cp manifest.json dist/
+          cp *.js dist/
+          cp *.html dist/
+          cp *.css dist/
+          
+          # Create zip file
+          cd dist
+          zip -r ../prevyou.zip *
+          cd ..
+      
+      - name: Upload to Chrome Web Store
+        uses: mobilefirstllc/cws-publish@v1
+        with:
+          source: prevyou.zip
+          extension_id: ${{ secrets.CHROME_EXTENSION_ID }}
+          client_id: ${{ secrets.CHROME_CLIENT_ID }}
+          client_secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh_token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+      
+      - name: Commit version bump
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add manifest.json package.json package-lock.json
+          git commit -m "chore: bump version to ${{ steps.bump_version.outputs.new_version }} [skip ci]"
+      
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+      
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.bump_version.outputs.new_version }}
+          release_name: Release v${{ steps.bump_version.outputs.new_version }}
+          body: |
+            Version ${{ steps.bump_version.outputs.new_version }} has been automatically published to the Chrome Web Store.
+            
+            Changes in this release:
+            - See commit history for details
+          draft: false
+          prerelease: false
+      
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./prevyou.zip
+          asset_name: prevyou-v${{ steps.bump_version.outputs.new_version }}.zip
+          asset_content_type: application/zip
