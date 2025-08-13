@@ -1,6 +1,6 @@
 {
   "name": "youtube-thumbnail-tester-chrome-extension",
-  "version": "0.1.6",
+  "version": "1.7.0",
   "description": "youtube-thumbnail-tester-chrome-extension",
   "main": "popup.js",
   "scripts": {
