@@ -73,13 +73,14 @@ jobs:
           cd ..
       
       - name: Upload to Chrome Web Store
-        uses: mobilefirstllc/cws-publish@v1
+        uses: mnao305/chrome-extension-upload@v5.0.0
         with:
-          source: prevyou.zip
-          extension_id: ${{ secrets.CHROME_EXTENSION_ID }}
-          client_id: ${{ secrets.CHROME_CLIENT_ID }}
-          client_secret: ${{ secrets.CHROME_CLIENT_SECRET }}
-          refresh_token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          file-path: prevyou.zip
+          extension-id: ${{ secrets.CHROME_EXTENSION_ID }}
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          publish: true
       
       - name: Commit version bump
         run: |
