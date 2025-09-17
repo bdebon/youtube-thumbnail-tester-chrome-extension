@@ -109,9 +109,19 @@ function findCard() {
         }
 
         // Sélecteur pour le titre - nouvelle structure
-        const title = target.querySelector('.yt-lockup-metadata-view-model-wiz__title')
+        let title = target.querySelector('.yt-lockup-metadata-view-model__title')
+        if (!title) {
+            // Fallback to old selector for compatibility
+            title = target.querySelector('.yt-lockup-metadata-view-model-wiz__title')
+        }
         if (title) {
-            title.textContent = result.thumbnailProperties.title
+            // Find the span containing the actual title text
+            const titleSpan = title.querySelector('span[role="text"]') || title.querySelector('span')
+            if (titleSpan) {
+                titleSpan.textContent = result.thumbnailProperties.title
+            } else {
+                title.textContent = result.thumbnailProperties.title
+            }
         }
 
         // Sélecteur pour le nom de la chaîne - nouvelle structure
